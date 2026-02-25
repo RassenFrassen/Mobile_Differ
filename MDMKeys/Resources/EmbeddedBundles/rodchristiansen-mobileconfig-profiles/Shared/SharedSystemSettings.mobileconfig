@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+	<key>PayloadDisplayName</key>
+	<string>SharedSystemSettings</string>
+
+	<key>PayloadIdentifier</key>
+	<string>com.example.profiles.SharedSystemSettings</string>
+	
+	<key>PayloadUUID</key>
+	<string>FA9CC958-A031-44A1-B07B-F622196B8B95</string>
+	
+	<key>PayloadScope</key>
+	<string>System</string>
+	
+	<key>PayloadDescription</key>
+	<string>Curriculum System Settings for Sonoma and beyond</string>
+	
+	<key>PayloadOrganization</key>
+	<string>ExampleOrganization</string>
+	
+	<key>PayloadRemovalDisallowed</key>
+	<true/>	
+	
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	
+	<key>PayloadType</key>
+	<string>Configuration</string>
+
+	<key>PayloadContent</key>
+	<array>
+
+		<dict>		
+			<key>PayloadType</key>
+			<string>com.apple.applicationaccess</string>
+			<key>PayloadIdentifier</key>
+			<string>com.example.profiles.SharedSystemSettings.BDF8C51D-DF78-4228-A514-4E142E8D0C44</string>
+			<key>PayloadUUID</key>
+			<string>550DCC8B-74F7-4890-9E49-556DBD56B6FB</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadEnabled</key>
+			<true/>
+				<key>allowAccountModification</key>
+				<false/>
+				<key>allowActivityContinuation</key>
+				<false/>
+				<key>allowGameCenter</key>
+				<false/>
+				<key>allowAssistant</key>
+				<false/>
+				<key>allowTimeMachineBackup</key>
+				<false/>
+				<key>allowFingerprintForUnlock</key>
+				<false/>
+				<key>allowWallpaperModification</key>
+				<false/>
+				<key>allowStartupDiskModification</key>
+				<false/>
+				<key>allowUniversalControl</key>
+				<false/>
+				<key>allowPrinterSharingModification</key>
+				<false/>
+				<key>allowPasswordAutoFill</key>
+				<false/>
+				<key>allowInternetSharingModification</key>
+				<false/>
+				<key>allowPasswordSharing</key>
+				<false/>
+				<key>allowARDRemoteManagementModification</key>
+				<false/>
+				<key>allowDeviceNameModification</key>
+				<false/>
+		</dict>	
+		
+		<dict>		
+			<key>PayloadType</key>
+			<string>com.apple.systempreferences</string>
+
+			<key>PayloadIdentifier</key>
+			<string>com.example.profiles.SharedSystemSettings.F97F9748-3DAE-4D5E-8330-0A7E034031D1</string>
+
+			<key>PayloadUUID</key>
+			<string>19D3982A-0892-472C-9B84-F6E31951DF1E</string>
+	
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		
+			<key>PayloadEnabled</key>
+			<true/>
+
+			<key>DisabledSystemSettings</key>
+			<array>
+			     <string>com.apple.ControlCenter-Settings.extension</string>
+			     <string>com.apple.Focus-Settings.extension</string>
+			     <string>com.apple.Passwords-Settings.extension</string>
+			     <string>com.apple.Screen-Time-Settings.extension</string>
+			</array>							
+			<key>AttentionPrefBundleIDs</key>
+				<dict>
+					<key>com.apple.FollowUpSettings.FollowUpSettingsExtension</key>
+					<integer>0</integer>
+				</dict>
+		</dict>
+		
+	</array> 
+</dict>
+</plist>

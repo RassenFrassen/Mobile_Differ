@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Restrictions</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.applicationaccess.C086105E-1793-414D-B9EA-434C13AD98E4</string>
+			<key>PayloadType</key>
+			<string>com.apple.applicationaccess</string>
+			<key>PayloadUUID</key>
+			<string>C086105E-1793-414D-B9EA-434C13AD98E4</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>enforcedSoftwareUpdateMajorOSDeferredInstallDelay</key>
+			<true/>
+			<key>forceDelayedMajorSoftwareUpdates</key>
+			<true/>
+		</dict>
+	</array>
+	<key>PayloadDisplayName</key>
+	<string>SoftwareUpdateDeferral</string>
+	<key>PayloadIdentifier</key>
+	<string>com.example.profiles.SoftwareUpdateDeferral.5CC2D5CF-615A-4641-A4AF-A253BBA41478</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>5CC2D5CF-615A-4641-A4AF-A253BBA41478</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+	<key>PayloadDisplayName</key>
+	<string>SharedScreenSaver</string>
+
+	<key>PayloadIdentifier</key>
+	<string>com.example.profiles.SharedScreenSaver</string>
+	
+	<key>PayloadUUID</key>
+	<string>0EC07145-66A2-4EF6-9E7B-66CE7AF010CD</string>
+	
+	<key>PayloadScope</key>
+	<string>System</string>
+	
+	<key>PayloadDescription</key>
+	<string></string>
+	
+	<key>PayloadOrganization</key>
+	<string>ExampleOrganization</string>
+	
+	<key>PayloadRemovalDisallowed</key>
+	<true/>	
+	
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	
+	<key>PayloadType</key>
+	<string>Configuration</string>
+
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDisplayName</key>
+			<string>Screensaver</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.screensaver.9CAFCF47-1DBE-4C10-BB88-FCCC6251BB14</string>
+			<key>PayloadType</key>
+			<string>com.apple.screensaver</string>
+			<key>PayloadUUID</key>
+			<string>B47944C0-C65D-4615-B73A-82751B0B17C1</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>idleTime</key>
+			<integer>1200</integer>
+			<key>askForPassword</key>
+			<true/>
+			<key>askForPasswordDelay</key>
+			<integer>2147483647</integer>
+			<key>moduleName</key>
+			<string>ScreenSaver</string>
+		</dict>
+	</array>
+</dict>
+</plist>

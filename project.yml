@@ -1,0 +1,94 @@
+name: MDMKeys
+options:
+  bundleIdPrefix: com.mdmkeys
+  deploymentTarget:
+    iOS: "26.0"
+  xcodeVersion: "16"
+  createIntermediateGroups: true
+  groupSortPosition: top
+  usesTabs: false
+  indentWidth: 4
+  tabWidth: 4
+
+packages:
+  ZIPFoundation:
+    url: https://github.com/weichsel/ZIPFoundation.git
+    from: "0.9.19"
+  Yams:
+    url: https://github.com/jpsim/Yams.git
+    from: "6.2.1"
+
+settings:
+  base:
+    SWIFT_VERSION: 5.9
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    ENABLE_PREVIEWS: YES
+
+targets:
+  MDMKeys:
+    type: application
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: MDMKeys/App
+      - path: MDMKeys/Models
+      - path: MDMKeys/Services
+      - path: MDMKeys/Views
+    resources:
+      - path: MDMKeys/Resources/Assets.xcassets
+      - path: MDMKeys/Resources/EmbeddedBundles
+        type: folder
+      - path: MDMKeys/Resources/mdm_catalog_seed.json
+    dependencies:
+      - package: ZIPFoundation
+        product: ZIPFoundation
+      - package: Yams
+        product: Yams
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mdmkeys.app
+        PRODUCT_NAME: MDMKeys
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+        INFOPLIST_FILE: MDMKeys/Resources/Info.plist
+        SWIFT_EMIT_LOC_STRINGS: YES
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+      configs:
+        Debug:
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+          DEBUG_INFORMATION_FORMAT: dwarf
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    info:
+      path: MDMKeys/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: MDM Keys
+        CFBundleShortVersionString: "1.0.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+          NSExceptionDomains:
+            developer.apple.com:
+              NSIncludesSubdomains: true
+              NSExceptionAllowsInsecureHTTPLoads: false
+        ITSAppUsesNonExemptEncryption: false
+        BGTaskSchedulerPermittedIdentifiers:
+          - $(PRODUCT_BUNDLE_IDENTIFIER).mdmrefresh
+        UIBackgroundModes:
+          - fetch

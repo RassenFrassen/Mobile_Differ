@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>locked</key>
+            <true/>
+            <key>override-picture-path</key>
+            <string>/System/Library/Desktop Pictures/Solid Colors/Space Gray Pro.png</string>
+            <key>PayloadIdentifier</key>
+            <string>com.example.profiles.SharedWallpaper.desktop</string>
+            <key>PayloadType</key>
+            <string>com.apple.desktop</string>
+            <key>PayloadUUID</key>
+            <string>B2CF3AFC-2E47-48E3-997B-3DFA309617BE</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <key>PayloadDisplayName</key>
+    <string>SharedWallpaper</string>
+    <key>PayloadDescription</key>
+    <string>Sets desktop background to Space Gray Pro.</string>
+    <key>PayloadIdentifier</key>
+    <string>com.example.profiles.SharedWallpaper</string>
+    <key>PayloadOrganization</key>
+    <string>ExampleOrganization</string>
+    <key>PayloadRemovalDisallowed</key>
+    <true/>
+    <key>PayloadScope</key>
+    <string>System</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>2C9D11F9-CFB4-4B3F-A537-FA854DBE978B</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>

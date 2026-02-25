@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadDisplayName</key>
+	<string>SharedSystemPrefs</string>
+	
+	<key>PayloadIdentifier</key>
+	<string>com.example.profiles.SharedSystemPrefs</string>
+	
+	<key>PayloadRemovalDisallowed</key>
+	<false/>
+	
+	<key>PayloadScope</key>
+	<string>User</string>
+	
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	
+	<key>PayloadUUID</key>
+	<string>B40E4675-0015-4889-B99A-1AC7A40992B7</string>
+	
+	<key>PayloadOrganization</key>
+	<string>ExampleOrganization</string>
+	
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadType</key>
+			<string>com.apple.systempreferences</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>PayloadIdentifier</key>
+			<string>com.example.profiles.SharedSystemPrefs.B52F83A0-C1E0-0132-4F72-000C29B48376</string>
+			<key>PayloadEnabled</key>
+			<true/>
+			<key>PayloadUUID</key>
+			<string>deffa4b8-cb96-4fe0-7f0b-46fdd0f6d352</string>
+			<key>PayloadDisplayName</key>
+			<string>System Preferences</string>
+			<key>HiddenPreferencePanes</key>
+			<array>
+				<string>com.apple.preferences.icloud</string>
+				<string>com.apple.preference.digihub.discs</string>
+				<string>com.apple.preferences.parentalcontrols</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

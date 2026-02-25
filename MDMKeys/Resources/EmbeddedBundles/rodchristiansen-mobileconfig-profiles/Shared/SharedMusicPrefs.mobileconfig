@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+	<key>PayloadDisplayName</key>
+	<string>SharedMusicPrefs</string>
+
+	<key>PayloadIdentifier</key>
+	<string>com.example.profiles.SharedMusicPrefs</string>
+	
+	<key>PayloadUUID</key>
+	<string>AD9C6FC0-24B0-437E-A7EC-6585C78D6DF8</string>
+	
+	<key>PayloadScope</key>
+	<string>System</string>
+	
+	<key>PayloadDescription</key>
+	<string></string>
+	
+	<key>PayloadOrganization</key>
+	<string>ExampleOrganization</string>
+	
+	<key>PayloadRemovalDisallowed</key>
+	<true/>	
+	
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+	
+	<key>PayloadType</key>
+	<string>Configuration</string>
+
+	<key>PayloadContent</key>
+	<array>
+
+		
+		<dict>		
+			<key>PayloadType</key>
+			<string>com.apple.iTunes</string>
+
+			<key>PayloadIdentifier</key>
+			<string>com.example.profiles.SharedMusicPrefs.EA4C231A-F646-4312-A527-C9432B5F0047</string>
+
+			<key>PayloadUUID</key>
+			<string>4EAD85B2-19E8-476B-A5AE-7299B04EC293</string>
+	
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		
+			<key>PayloadEnabled</key>
+			<true/>
+
+			<key>DisableDeviceBackups</key>
+			<true/>
+			<key>disableAppleMusic</key>
+			<true/>
+			<key>disableArtistConnect</key>
+			<true/>
+			<key>disableMusicStore</key>
+			<true/>
+			<key>disableRadio</key>
+			<true/>
+			<key>disableSharedMusic</key>
+			<true/>
+			<key>disableShareLibraryInfo</key>
+			<true/>
+			<key>doesAccountArtistListHaveSharePermission</key>
+			<false/>
+			<key>dontAutomaticallySyncIPods</key>
+			<true/>
+			<key>license-agreements</key>
+			<dict>
+				<key>EA1510</key>
+				<true/>
+			</dict>		
+		</dict>
+		
+	</array>
+</dict>
+</plist>
