@@ -246,6 +246,69 @@ enum MDMProfileSampleBuilder {
         hierarchyComponents(for: keyPath).joined(separator: " > ")
     }
 
+    static func simplifiedProfile(for payload: MDMPayloadRecord, keys: [MDMKeyRecord]) -> String {
+        var lines: [String] = []
+        lines.append("Payload Type: \(payload.payloadType)")
+        lines.append("Payload Name: \(payload.name.isEmpty ? payload.payloadType : payload.name)")
+        lines.append("")
+        
+        if keys.isEmpty {
+            lines.append("No keys available for this payload.")
+        } else {
+            lines.append("Keys (\(keys.count)):")
+            for key in keys.sorted(by: { $0.keyPath < $1.keyPath }) {
+                lines.append("")
+                lines.append("  \(key.keyPath)")
+                if let keyType = key.keyType {
+                    lines.append("    Type: \(keyType)")
+                }
+                if let required = key.required {
+                    lines.append("    Required: \(required ? "Yes" : "No")")
+                }
+                if let defaultValue = key.defaultValue {
+                    lines.append("    Default: \(defaultValue)")
+                }
+            }
+        }
+        
+        return lines.joined(separator: "\n")
+    }
+    
+    static func profileXML(for payload: MDMPayloadRecord, keys: [MDMKeyRecord]) -> String {
+        var payloadEntries: [(String, PlistValue)] = [
+            ("PayloadType", .string(payload.payloadType)),
+            ("PayloadVersion", .integer(1)),
+            ("PayloadIdentifier", .string("com.example.\(sanitizedIdentifier(from: payload.payloadType)).payload")),
+            ("PayloadUUID", .string("00000000-0000-0000-0000-000000000000")),
+            ("PayloadDisplayName", .string(payload.name.isEmpty ? payload.payloadType : payload.name))
+        ]
+        
+        for key in keys.sorted(by: { $0.keyPath < $1.keyPath }) {
+            let leafValue = sampleValue(for: key)
+            let nested = nestedValue(tokens: tokens(from: key.keyPath), leaf: leafValue)
+            
+            let keyEntries: [(String, PlistValue)]
+            if case let .dict(entries) = nested, !entries.isEmpty {
+                keyEntries = entries
+            } else {
+                keyEntries = [(key.keyPath, leafValue)]
+            }
+            
+            payloadEntries.append(contentsOf: keyEntries)
+        }
+        
+        let root: PlistValue = .dict([
+            ("PayloadType", .string("Configuration")),
+            ("PayloadVersion", .integer(1)),
+            ("PayloadIdentifier", .string("com.example.generatedprofile")),
+            ("PayloadUUID", .string("11111111-1111-1111-1111-111111111111")),
+            ("PayloadDisplayName", .string("Generated \(payload.name.isEmpty ? payload.payloadType : payload.name) Example")),
+            ("PayloadContent", .array([.dict(payloadEntries)]))
+        ])
+        
+        return plistDocument(for: root)
+    }
+    
     static func simplifiedProfile(for key: MDMKeyRecord, payloadName: String?) -> String {
         let resolvedPayloadName = nonEmpty(payloadName)
             ?? nonEmpty(key.payloadName)

@@ -39,7 +39,7 @@ struct LoadingView: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(.white)
                     
-                    Text("Loading MDM catalog...")
+                    Text("Loading Payloads and Keys catalog...")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.7))
                 }
@@ -47,7 +47,7 @@ struct LoadingView: View {
                 // Messages green progress bar
                 ProgressView(value: progress, total: 1.0)
                     .progressViewStyle(LinearProgressViewStyle(tint: messagesGreen))
-                    .frame(width: 200)
+                    .frame(width: 300)
                     .padding(.top, 8)
             }
         }
@@ -60,10 +60,16 @@ struct LoadingView: View {
     }
     
     private func loadAppIcon() -> UIImage? {
-        // Load the standalone app icon resource
+        // Try loading from bundle first
+        if let image = UIImage(named: "AppIcon120") {
+            return image
+        }
+        
+        // Fallback to file path
         if let iconPath = Bundle.main.path(forResource: "AppIcon120", ofType: "png") {
             return UIImage(contentsOfFile: iconPath)
         }
+        
         return nil
     }
 }

@@ -144,11 +144,18 @@ struct KeyBrowserView: View {
 
 struct KeyRowView: View {
     let key: MDMKeyRecord
+    
+    private var displayName: String {
+        if key.key == "ANY" {
+            return "Custom Keys (any key-value pairs)"
+        }
+        return key.key
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
-                Text(key.key)
+                Text(displayName)
                     .font(.body.weight(.medium))
                     .lineLimit(1)
 

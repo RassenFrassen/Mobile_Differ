@@ -137,10 +137,75 @@ actor MDMCatalogStore {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
-            return try decoder.decode(MDMSnapshot.self, from: data)
+            let snapshot = try decoder.decode(MDMSnapshot.self, from: data)
+            return cleanSnapshot(snapshot)
         } catch {
             return nil
         }
+    }
+    
+    private func cleanSnapshot(_ snapshot: MDMSnapshot) -> MDMSnapshot {
+        let cleanedPayloads = snapshot.payloads.map { payload in
+            MDMPayloadRecord(
+                id: payload.id,
+                name: cleanQuotedString(payload.name) ?? payload.payloadType,
+                payloadType: payload.payloadType,
+                category: payload.category,
+                platforms: payload.platforms,
+                introduced: payload.introduced,
+                deprecated: payload.deprecated,
+                sources: payload.sources,
+                summary: payload.summary,
+                discussion: payload.discussion,
+                profileExample: payload.profileExample,
+                profileExampleSyntax: payload.profileExampleSyntax
+            )
+        }
+        
+        let cleanedKeys = snapshot.keys.map { key in
+            MDMKeyRecord(
+                id: key.id,
+                key: key.key,
+                keyPath: key.keyPath,
+                payloadType: key.payloadType,
+                payloadName: cleanQuotedString(key.payloadName),
+                platforms: key.platforms,
+                sources: key.sources,
+                introduced: key.introduced,
+                deprecated: key.deprecated,
+                publicationDate: key.publicationDate,
+                keyType: key.keyType,
+                keyDescription: key.keyDescription,
+                required: key.required,
+                defaultValue: key.defaultValue,
+                possibleValues: key.possibleValues
+            )
+        }
+        
+        return MDMSnapshot(
+            schemaVersion: snapshot.schemaVersion,
+            generatedAt: snapshot.generatedAt,
+            sources: snapshot.sources,
+            payloads: cleanedPayloads,
+            keys: cleanedKeys
+        )
+    }
+    
+    private func cleanQuotedString(_ value: String?) -> String? {
+        guard var cleaned = value else { return nil }
+        
+        // Remove surrounding single quotes
+        if cleaned.hasPrefix("'") && cleaned.hasSuffix("'") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        // Remove surrounding double quotes
+        if cleaned.hasPrefix("\"") && cleaned.hasSuffix("\"") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        let trimmed = cleaned.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 
     private func saveSnapshot(_ snapshot: MDMSnapshot, to url: URL) async {

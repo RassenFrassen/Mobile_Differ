@@ -10,12 +10,16 @@ struct ContentView: View {
                     .transition(.opacity)
             } else {
                 TabView {
+                    Tab("Payloads", systemImage: "doc.text") {
+                        PayloadListView()
+                    }
+
                     Tab("Keys", systemImage: "key.horizontal") {
                         KeyBrowserView()
                     }
-
-                    Tab("Payloads", systemImage: "doc.text") {
-                        PayloadListView()
+                    
+                    Tab("Compatibility", systemImage: "checkmark.shield") {
+                        CompatibilityView()
                     }
 
                     Tab("Updates", systemImage: "bell") {

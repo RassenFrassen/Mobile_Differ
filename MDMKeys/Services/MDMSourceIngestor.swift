@@ -1369,7 +1369,7 @@ private enum AppleMDMYamlParser {
         }
 
         let payloadType = extractPayloadType(from: content) ?? "com.apple.unknown"
-        let payloadName = extractPayloadName(from: content) ?? payloadType
+        let payloadName = cleanPayloadName(extractPayloadName(from: content)) ?? payloadType
         let payload = MDMPayloadRecord(
             id: payloadType,
             name: payloadName,
@@ -1412,7 +1412,7 @@ private enum AppleMDMYamlParser {
         guard let root = yaml as? [String: Any] else { return nil }
 
         let payloadType = findString(in: root, keys: ["payloadType", "PayloadType"]) ?? "com.apple.unknown"
-        let payloadName = findString(in: root, keys: ["title", "name", "payloadName"]) ?? payloadType
+        let payloadName = cleanPayloadName(findString(in: root, keys: ["title", "name", "payloadName"])) ?? payloadType
         let platforms = findPlatforms(in: root)
 
         let payload = MDMPayloadRecord(
@@ -1631,6 +1631,22 @@ private enum AppleMDMYamlParser {
         }
         return nil
     }
+    
+    private static func cleanPayloadName(_ name: String?) -> String? {
+        guard var cleaned = name else { return nil }
+        
+        // Remove surrounding single quotes
+        if cleaned.hasPrefix("'") && cleaned.hasSuffix("'") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        // Remove surrounding double quotes
+        if cleaned.hasPrefix("\"") && cleaned.hasSuffix("\"") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        return cleaned.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+    }
 }
 
 // MARK: - Profile payload extraction
@@ -1673,7 +1689,7 @@ private enum ProfilePayloadExtractor {
 
         for payload in payloadContent {
             guard let payloadType = payload["PayloadType"] as? String else { continue }
-            let payloadName = payload["PayloadDisplayName"] as? String ?? payloadType
+            let payloadName = cleanPayloadName(payload["PayloadDisplayName"] as? String) ?? payloadType
             let payloadRecord = MDMPayloadRecord(
                 id: payloadType,
                 name: payloadName,
@@ -1736,6 +1752,22 @@ private enum ProfilePayloadExtractor {
 
         return results
     }
+    
+    private static func cleanPayloadName(_ name: String?) -> String? {
+        guard var cleaned = name else { return nil }
+        
+        // Remove surrounding single quotes
+        if cleaned.hasPrefix("'") && cleaned.hasSuffix("'") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        // Remove surrounding double quotes
+        if cleaned.hasPrefix("\"") && cleaned.hasSuffix("\"") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        return cleaned.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+    }
 }
 
 // MARK: - ProfileManifests catalog extraction
@@ -1774,7 +1806,7 @@ private enum ProfileManifestCatalogExtractor {
             return ([], [])
         }
 
-        let payloadName = string(in: root, keys: ["pfm_title", "PFMTitle", "pfm_name", "PFMName"])
+        let payloadName = cleanPayloadName(string(in: root, keys: ["pfm_title", "PFMTitle", "pfm_name", "PFMName"]))
             ?? payloadType
         let payloadPlatforms = platforms(from: root)
         let introduced = firstVersion(in: root, keys: minVersionKeys)
@@ -1994,5 +2026,21 @@ private enum ProfileManifestCatalogExtractor {
         }
 
         return "\(value)".trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+    }
+    
+    private static func cleanPayloadName(_ name: String?) -> String? {
+        guard var cleaned = name else { return nil }
+        
+        // Remove surrounding single quotes
+        if cleaned.hasPrefix("'") && cleaned.hasSuffix("'") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        // Remove surrounding double quotes
+        if cleaned.hasPrefix("\"") && cleaned.hasSuffix("\"") {
+            cleaned = String(cleaned.dropFirst().dropLast())
+        }
+        
+        return cleaned.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
     }
 }

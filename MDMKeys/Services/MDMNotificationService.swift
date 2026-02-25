@@ -42,8 +42,8 @@ actor MDMNotificationService {
             removedCount: effectiveCounts.removed
         )
         let platformText = platforms.isEmpty ? "All platforms" : platforms.joined(separator: ", ")
-        let sourceText = sources.isEmpty ? "Multiple sources" : sources.joined(separator: ", ")
-        let body = "\(summary) · \(platformText) · \(sourceText)"
+        let sourceText = formatSourceText(sources)
+        let body = "\(summary)\nSource: \(sourceText)\nPlatforms: \(platformText)"
 
         await setUnreadCount(totalCount)
         let content = UNMutableNotificationContent()
@@ -177,6 +177,42 @@ actor MDMNotificationService {
         if updatedCount > 0 { parts.append("\(updatedCount) updated") }
         if removedCount > 0 { parts.append("\(removedCount) removed") }
         return parts.isEmpty ? "No changes" : parts.joined(separator: ", ")
+    }
+    
+    private func formatSourceText(_ sources: [String]) -> String {
+        if sources.isEmpty {
+            return "Multiple sources"
+        }
+        
+        // Deduplicate sources first
+        let uniqueSources = Array(Set(sources)).sorted()
+        
+        let shortSources = uniqueSources.map { source -> String in
+            switch source {
+            case "Apple device-management":
+                return "Apple Device Management"
+            case "Apple Developer Documentation":
+                return "Apple Developer Docs"
+            case "ProfileManifests":
+                return "ProfileManifests"
+            case "rtrouton/profiles":
+                return "rtrouton"
+            case "rodchristiansen/mobileconfig-profiles":
+                return "rodchristiansen"
+            case "Mac-Nerd/Mac-profiles":
+                return "Mac-Nerd"
+            default:
+                return source
+            }
+        }
+        
+        if shortSources.count == 1 {
+            return shortSources[0]
+        } else if shortSources.count == 2 {
+            return shortSources.joined(separator: " & ")
+        } else {
+            return "\(shortSources.count) sources (\(shortSources.prefix(2).joined(separator: ", "))…)"
+        }
     }
 
     private func uniqueChanges(_ changes: [MDMNotificationLogChange]) -> [MDMNotificationLogChange] {

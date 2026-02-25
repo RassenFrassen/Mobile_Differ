@@ -3,6 +3,14 @@ import SwiftUI
 struct KeyDetailView: View {
     let key: MDMKeyRecord
     @State private var showXML = false
+    @State private var showSimplified = false
+    
+    private var displayName: String {
+        if key.key == "ANY" {
+            return "Custom Keys (any key-value pairs)"
+        }
+        return key.key
+    }
 
     var body: some View {
         List {
@@ -11,7 +19,7 @@ struct KeyDetailView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(alignment: .top, spacing: 8) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(key.key)
+                            Text(displayName)
                                 .font(.title2.weight(.bold))
                                 .textSelection(.enabled)
                             Text(key.keyPath)
@@ -134,13 +142,29 @@ struct KeyDetailView: View {
                 }
             }
 
-            // Profile XML Example
+            // Profile Examples
             Section {
+                Button {
+                    showSimplified.toggle()
+                } label: {
+                    Label(
+                        showSimplified ? "Hide Domain & Reference" : "Show Domain & Reference",
+                        systemImage: "doc.plaintext"
+                    )
+                }
+
+                if showSimplified {
+                    Text(MDMProfileSampleBuilder.simplifiedProfile(for: key, payloadName: key.payloadName))
+                        .font(.system(.caption, design: .monospaced))
+                        .textSelection(.enabled)
+                        .padding(.vertical, 4)
+                }
+                
                 Button {
                     showXML.toggle()
                 } label: {
                     Label(
-                        showXML ? "Hide Profile XML Example" : "Show Profile XML Example",
+                        showXML ? "Hide Full XML Profile" : "Show Full XML Profile",
                         systemImage: "doc.text.magnifyingglass"
                     )
                 }
@@ -154,11 +178,11 @@ struct KeyDetailView: View {
                     }
                 }
             } header: {
-                Text("Profile Example")
+                Text("Profile Examples")
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(key.key)
+        .navigationTitle(displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

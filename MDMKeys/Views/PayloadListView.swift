@@ -146,6 +146,9 @@ struct PayloadRowView: View {
 struct PayloadDetailView: View {
     let payload: MDMPayloadRecord
     @EnvironmentObject var appState: AppState
+    
+    @State private var showXML = false
+    @State private var showSimplified = false
 
     private var payloadKeys: [MDMKeyRecord] {
         appState.mdmKeys
@@ -208,6 +211,49 @@ struct PayloadDetailView: View {
                             KeyRowView(key: key)
                         }
                     }
+                }
+                
+                // Profile Examples
+                Section {
+                    Button {
+                        showSimplified.toggle()
+                    } label: {
+                        Label(
+                            showSimplified ? "Hide Domain & Reference" : "Show Domain & Reference",
+                            systemImage: "doc.plaintext"
+                        )
+                    }
+
+                    if showSimplified {
+                        ScrollView(.vertical, showsIndicators: true) {
+                            Text(MDMProfileSampleBuilder.simplifiedProfile(for: payload, keys: payloadKeys))
+                                .font(.system(.caption, design: .monospaced))
+                                .textSelection(.enabled)
+                                .padding(.vertical, 4)
+                        }
+                        .frame(maxHeight: 300)
+                    }
+                    
+                    Button {
+                        showXML.toggle()
+                    } label: {
+                        Label(
+                            showXML ? "Hide Full XML Profile" : "Show Full XML Profile",
+                            systemImage: "doc.text.magnifyingglass"
+                        )
+                    }
+
+                    if showXML {
+                        ScrollView([.horizontal, .vertical], showsIndicators: true) {
+                            Text(MDMProfileSampleBuilder.profileXML(for: payload, keys: payloadKeys))
+                                .font(.system(.caption, design: .monospaced))
+                                .textSelection(.enabled)
+                                .padding(.vertical, 4)
+                        }
+                        .frame(maxHeight: 400)
+                    }
+                } header: {
+                    Text("Profile Examples")
                 }
             }
         }
