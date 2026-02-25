@@ -5,8 +5,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
     case appleDeveloperDocumentation = "Apple Developer Documentation"
     case profileCreator = "ProfileManifests"
     case rtroutonProfiles = "rtrouton/profiles"
-    case rodChristiansenProfiles = "rodchristiansen/mobileconfig-profiles"
-    case macNerdProfiles = "Mac-Nerd/Mac-profiles"
 
     var id: String { rawValue }
 
@@ -20,10 +18,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "https://github.com/ProfileManifests/ProfileManifests"
         case .rtroutonProfiles:
             return "https://github.com/rtrouton/profiles"
-        case .rodChristiansenProfiles:
-            return "https://github.com/rodchristiansen/mobileconfig-profiles"
-        case .macNerdProfiles:
-            return "https://github.com/Mac-Nerd/Mac-profiles"
         }
     }
 
@@ -33,8 +27,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
         case .appleDeveloperDocumentation: return "Apple"
         case .profileCreator: return "ProfileManifests"
         case .rtroutonProfiles: return "rtrouton"
-        case .rodChristiansenProfiles: return "rodchristiansen"
-        case .macNerdProfiles: return "Mac-Nerd"
         }
     }
 
@@ -48,10 +40,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "Community ProfileManifests payload manifest source."
         case .rtroutonProfiles:
             return "Community profile payload samples."
-        case .rodChristiansenProfiles:
-            return "Community mobileconfig profile library."
-        case .macNerdProfiles:
-            return "Community macOS configuration profile collection."
         }
     }
 
@@ -63,10 +51,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "doc.text.magnifyingglass"
         case .rtroutonProfiles:
             return "person.fill"
-        case .rodChristiansenProfiles:
-            return "doc.text"
-        case .macNerdProfiles:
-            return "doc.badge.gearshape"
         }
     }
 
@@ -85,11 +69,6 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
         case "profileCreator": self = .profileCreator
         case "ProfileCreator": self = .profileCreator
         case "rtroutonProfiles": self = .rtroutonProfiles
-        case "rodChristiansenProfiles": self = .rodChristiansenProfiles
-        case "mobileconfigProfiles": self = .rodChristiansenProfiles  // Legacy compatibility
-        case "rodchristiansen/Profiles": self = .rodChristiansenProfiles  // Legacy compatibility
-        case "mobileconfig-profiles": self = .rodChristiansenProfiles  // Legacy compatibility
-        case "macNerdProfiles": self = .macNerdProfiles
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

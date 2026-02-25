@@ -184,8 +184,6 @@ actor MDMUpdateService {
         case .appleDeveloperDocumentation: return 1
         case .profileCreator: return 2
         case .rtroutonProfiles: return 3
-        case .rodChristiansenProfiles: return 4
-        case .macNerdProfiles: return 5
         }
     }
 

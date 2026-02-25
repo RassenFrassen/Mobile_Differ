@@ -126,10 +126,6 @@ actor RepositoryBundleService {
             return "ProfileManifests-ProfileManifests"
         case .rtroutonProfiles:
             return "rtrouton-profiles"
-        case .rodChristiansenProfiles:
-            return "rodchristiansen-mobileconfig-profiles"
-        case .macNerdProfiles:
-            return "Mac-Nerd-Mac-profiles"
         case .appleDeveloperDocumentation:
             return nil
         }
@@ -154,8 +150,6 @@ actor RepositoryBundleService {
         case .appleDeviceManagement: dirName = "apple-device-management"
         case .profileCreator: dirName = "ProfileManifests-ProfileManifests"
         case .rtroutonProfiles: dirName = "rtrouton-profiles"
-        case .rodChristiansenProfiles: dirName = "rodchristiansen-mobileconfig-profiles"
-        case .macNerdProfiles: dirName = "Mac-Nerd-Mac-profiles"
         case .appleDeveloperDocumentation: return nil
         }
         let path = bundlesDir.appendingPathComponent(dirName, isDirectory: true)

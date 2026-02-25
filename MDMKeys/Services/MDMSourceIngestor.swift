@@ -30,12 +30,6 @@ actor MDMSourceIngestor {
             if enabledSources.contains(.rtroutonProfiles) {
                 group.addTask { await self.fetchRtroutonProfiles(token: token) }
             }
-            if enabledSources.contains(.rodChristiansenProfiles) {
-                group.addTask { await self.fetchRodChristiansenProfiles(token: token) }
-            }
-            if enabledSources.contains(.macNerdProfiles) {
-                group.addTask { await self.fetchMacNerdProfiles(token: token) }
-            }
 
             var results: [SourceResult] = []
             for await result in group {
@@ -875,32 +869,6 @@ actor MDMSourceIngestor {
             token: token,
             licenseName: "MIT",
             licenseURL: "https://github.com/rtrouton/profiles/blob/main/LICENSE"
-        )
-    }
-
-    // MARK: - rodchristiansen/mobileconfig-profiles
-
-    private func fetchRodChristiansenProfiles(token: String?) async -> SourceResult? {
-        await fetchProfilesFromRepo(
-            owner: "rodchristiansen",
-            repo: "mobileconfig-profiles",
-            source: .rodChristiansenProfiles,
-            token: token,
-            licenseName: nil,
-            licenseURL: nil
-        )
-    }
-
-    // MARK: - Mac-Nerd/Mac-profiles
-
-    private func fetchMacNerdProfiles(token: String?) async -> SourceResult? {
-        await fetchProfilesFromRepo(
-            owner: "Mac-Nerd",
-            repo: "Mac-profiles",
-            source: .macNerdProfiles,
-            token: token,
-            licenseName: nil,
-            licenseURL: nil
         )
     }
 

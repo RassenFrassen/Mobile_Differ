@@ -139,7 +139,7 @@ private let docSections: [DocSection] = [
         DocItem("Official Apple MDM payload definitions in YAML format, maintained in the apple/device-management GitHub repository. This is the most authoritative source.", title: "Apple device-management"),
         DocItem("Apple's documentation website at developer.apple.com, crawled to extract payload and property documentation with rich descriptions.", title: "Apple Developer Documentation"),
         DocItem("The ProfileManifests/ProfileManifests repository provides plist-format manifests used by iMazing Profile Editor and Profile Creator. Includes detailed type information and allowed values.", title: "ProfileManifests"),
-        DocItem("Community-maintained collections of example .mobileconfig profiles from rtrouton/profiles, rodchristiansen/mobileconfig-profiles, and Mac-Nerd/Mac-profiles. These reveal real-world key usage.", title: "Community Sources"),
+        DocItem("Community-maintained collections of example .mobileconfig profiles from rtrouton/profiles and Mac-Nerd/Mac-profiles. These reveal real-world key usage.", title: "Community Sources"),
         DocItem("Disable sources you don't need in Settings to reduce API calls and refresh time. Apple device-management is recommended for all users.", title: "Source Selection")
     ]),
 

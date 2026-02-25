@@ -44,7 +44,8 @@ struct KeyBrowserView: View {
     }
 
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: .constant(.all), 
+                           preferredCompactColumn: .constant(.sidebar)) {
             Group {
                 if appState.mdmKeys.isEmpty && !appState.isUpdatingMDMCatalog {
                     emptyState
@@ -54,7 +55,7 @@ struct KeyBrowserView: View {
             }
             .navigationTitle("Differ")
             .navigationSubtitle("\(filteredKeys.count) of \(appState.mdmKeys.count) keys")
-            .searchable(text: $searchText, prompt: "Search keys, payloads, descriptions…")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search keys, payloads, descriptions…")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     filterButton
@@ -73,6 +74,7 @@ struct KeyBrowserView: View {
                     showDeprecated: $showDeprecated
                 )
             }
+            .navigationSplitViewColumnWidth(min: 320, ideal: 450, max: 600)
         } detail: {
             if let key = selectedKey {
                 KeyDetailView(key: key)

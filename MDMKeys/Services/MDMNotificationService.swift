@@ -197,8 +197,6 @@ actor MDMNotificationService {
                 return "ProfileManifests"
             case "rtrouton/profiles":
                 return "rtrouton"
-            case "rodchristiansen/mobileconfig-profiles":
-                return "rodchristiansen"
             case "Mac-Nerd/Mac-profiles":
                 return "Mac-Nerd"
             default:
