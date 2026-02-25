@@ -52,7 +52,7 @@ struct KeyBrowserView: View {
                     keyList
                 }
             }
-            .navigationTitle("MDM Keys")
+            .navigationTitle("Differ")
             .searchable(text: $searchText, prompt: "Search keys, payloads, descriptions…")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -108,7 +108,7 @@ struct KeyBrowserView: View {
 
     private var emptyState: some View {
         ContentUnavailableView {
-            Label("No MDM Keys", systemImage: "key.horizontal")
+            Label("No Keys", systemImage: "key.horizontal")
         } description: {
             Text("Pull down to refresh the catalog, or tap the refresh button.")
         } actions: {

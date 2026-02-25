@@ -77,7 +77,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Background Updates")
                 } footer: {
-                    Text("When enabled, MDM Keys refreshes the catalog in the background once per day and notifies you of changes.")
+                    Text("When enabled, Differ refreshes the catalog in the background once per day and notifies you of changes.")
                 }
 
                 // Sources
@@ -171,7 +171,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Notifications")
                 } footer: {
-                    Text("MDM Keys sends a notification when new or changed MDM keys are found during catalog refresh. Enable notifications in Settings > MDM Keys.")
+                    Text("Differ sends a notification when new or changed MDM keys are found during catalog refresh. Enable notifications in Settings > Differ.")
                 }
 
                 // About

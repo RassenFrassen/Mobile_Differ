@@ -27,7 +27,7 @@ enum GitHubError: LocalizedError {
             }
             return "GitHub API rate limit exceeded"
         case .clientRateLimited(let resetAt):
-            return "MDM Keys request budget reached. Retry after \(GitHubError.resetFormatter.string(from: resetAt))."
+            return "Differ request budget reached. Retry after \(GitHubError.resetFormatter.string(from: resetAt))."
         case .networkError(let m):
             return "Network error: \(m)"
         case .decodingError(let m):

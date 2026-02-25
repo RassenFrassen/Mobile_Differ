@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Central state for MDM Keys — MDM catalog browsing and notifications.
+/// Central state for Differ — MDM catalog browsing and notifications.
 @MainActor
 class AppState: ObservableObject {
 
@@ -28,18 +28,27 @@ class AppState: ObservableObject {
     // MARK: - Init
 
     init() {
-        Task { await loadInitialCatalog() }
+        // Initial catalog loading is handled by MDMKeysApp.task modifier
+        // to ensure proper ordering with UI lifecycle
     }
 
     // MARK: - Catalog Loading
 
     func loadInitialCatalog() async {
+        logInfo("loadInitialCatalog: Starting catalog load")
+        
         // Try saved latest snapshot first, fall back to bundled seed
         if let latest = await MDMCatalogStore.shared.loadLatestSnapshot() {
+            logInfo("loadInitialCatalog: Loaded latest snapshot with \(latest.keys.count) keys")
             apply(snapshot: latest)
         } else if let seed = await MDMCatalogStore.shared.loadBundledSnapshot() {
+            logInfo("loadInitialCatalog: Loaded bundled seed with \(seed.keys.count) keys")
             apply(snapshot: seed)
+        } else {
+            logError("loadInitialCatalog: Failed to load any catalog snapshot")
         }
+        
+        logInfo("loadInitialCatalog: Complete. mdmKeys count = \(mdmKeys.count)")
     }
 
     func refreshMDMCatalog() async {
@@ -140,6 +149,11 @@ class AppState: ObservableObject {
     func markNotificationsRead() async {
         await MDMNotificationService.shared.markAllAsRead()
         mdmNotificationUnreadCount = 0
+    }
+
+    func loadNotificationData() async {
+        mdmNotificationLog = await MDMNotificationService.shared.loadLog()
+        mdmNotificationUnreadCount = await MDMNotificationService.shared.loadUnreadCount()
     }
 
     // MARK: - Settings Persistence

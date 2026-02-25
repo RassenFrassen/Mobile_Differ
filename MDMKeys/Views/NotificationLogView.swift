@@ -215,8 +215,24 @@ struct NotificationEntryDetailView: View {
 
 struct ChangeRowView: View {
     let change: MDMNotificationLogChange
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
+        Group {
+            if change.changeType == .removed {
+                // Don't link to removed keys (they no longer exist in the catalog)
+                changeContent
+            } else if let matchingKey = findMatchingKey() {
+                NavigationLink(destination: KeyDetailView(key: matchingKey)) {
+                    changeContent
+                }
+            } else {
+                changeContent
+            }
+        }
+    }
+
+    private var changeContent: some View {
         VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 4) {
                 Image(systemName: changeIcon)
@@ -240,6 +256,13 @@ struct ChangeRowView: View {
             }
         }
         .padding(.vertical, 2)
+    }
+
+    private func findMatchingKey() -> MDMKeyRecord? {
+        // Find the key in the current catalog that matches this change
+        appState.mdmKeys.first { key in
+            key.payloadType == change.payloadType && key.keyPath == change.keyPath
+        }
     }
 
     private var changeIcon: String {

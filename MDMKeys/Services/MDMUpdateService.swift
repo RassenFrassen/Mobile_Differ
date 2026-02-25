@@ -104,24 +104,33 @@ actor MDMUpdateService {
         var payloadIndex: [String: MDMPayloadRecord] = [:]
         var keyIndex: [String: MDMKeyRecord] = [:]
 
-        for result in results {
+        // Sort results to prioritize Apple sources
+        let sortedResults = results.sorted { lhs, rhs in
+            isAppleSource(lhs.source) && !isAppleSource(rhs.source)
+        }
+
+        for result in sortedResults {
             for payload in result.payloads {
                 if var existing = payloadIndex[payload.payloadType] {
-                    let mergedSources = Array(Set(existing.sources + payload.sources)).sorted { $0.rawValue < $1.rawValue }
+                    let mergedSources = Array(Set(existing.sources + payload.sources)).sorted { sortSource($0) < sortSource($1) }
                     let mergedPlatforms = Array(Set(existing.platforms + payload.platforms)).sorted()
+                    
+                    // If current is Apple source, prefer its values; otherwise keep existing
+                    let isCurrentApple = isAppleSource(result.source)
+                    
                     existing = MDMPayloadRecord(
                         id: existing.id,
-                        name: existing.name.isEmpty ? payload.name : existing.name,
+                        name: isCurrentApple && !payload.name.isEmpty ? payload.name : (existing.name.isEmpty ? payload.name : existing.name),
                         payloadType: existing.payloadType,
-                        category: existing.category ?? payload.category,
+                        category: isCurrentApple ? (payload.category ?? existing.category) : (existing.category ?? payload.category),
                         platforms: mergedPlatforms,
-                        introduced: existing.introduced ?? payload.introduced,
-                        deprecated: existing.deprecated ?? payload.deprecated,
+                        introduced: isCurrentApple ? (payload.introduced ?? existing.introduced) : (existing.introduced ?? payload.introduced),
+                        deprecated: isCurrentApple ? (payload.deprecated ?? existing.deprecated) : (existing.deprecated ?? payload.deprecated),
                         sources: mergedSources,
-                        summary: existing.summary ?? payload.summary,
-                        discussion: existing.discussion ?? payload.discussion,
-                        profileExample: existing.profileExample ?? payload.profileExample,
-                        profileExampleSyntax: existing.profileExampleSyntax ?? payload.profileExampleSyntax
+                        summary: isCurrentApple ? (payload.summary ?? existing.summary) : (existing.summary ?? payload.summary),
+                        discussion: isCurrentApple ? (payload.discussion ?? existing.discussion) : (existing.discussion ?? payload.discussion),
+                        profileExample: isCurrentApple ? (payload.profileExample ?? existing.profileExample) : (existing.profileExample ?? payload.profileExample),
+                        profileExampleSyntax: isCurrentApple ? (payload.profileExampleSyntax ?? existing.profileExampleSyntax) : (existing.profileExampleSyntax ?? payload.profileExampleSyntax)
                     )
                     payloadIndex[payload.payloadType] = existing
                 } else {
@@ -131,24 +140,28 @@ actor MDMUpdateService {
 
             for key in result.keys {
                 if var existing = keyIndex[key.id] {
-                    let mergedSources = Array(Set(existing.sources + key.sources)).sorted { $0.rawValue < $1.rawValue }
+                    let mergedSources = Array(Set(existing.sources + key.sources)).sorted { sortSource($0) < sortSource($1) }
                     let mergedPlatforms = Array(Set(existing.platforms + key.platforms)).sorted()
+                    
+                    // If current is Apple source, prefer its values; otherwise keep existing
+                    let isCurrentApple = isAppleSource(result.source)
+                    
                     existing = MDMKeyRecord(
                         id: existing.id,
                         key: existing.key,
                         keyPath: existing.keyPath,
                         payloadType: existing.payloadType,
-                        payloadName: existing.payloadName ?? key.payloadName,
+                        payloadName: isCurrentApple ? (key.payloadName ?? existing.payloadName) : (existing.payloadName ?? key.payloadName),
                         platforms: mergedPlatforms,
                         sources: mergedSources,
-                        introduced: existing.introduced ?? key.introduced,
-                        deprecated: existing.deprecated ?? key.deprecated,
-                        publicationDate: existing.publicationDate ?? key.publicationDate,
-                        keyType: existing.keyType ?? key.keyType,
-                        keyDescription: existing.keyDescription ?? key.keyDescription,
-                        required: existing.required ?? key.required,
-                        defaultValue: existing.defaultValue ?? key.defaultValue,
-                        possibleValues: existing.possibleValues ?? key.possibleValues
+                        introduced: isCurrentApple ? (key.introduced ?? existing.introduced) : (existing.introduced ?? key.introduced),
+                        deprecated: isCurrentApple ? (key.deprecated ?? existing.deprecated) : (existing.deprecated ?? key.deprecated),
+                        publicationDate: isCurrentApple ? (key.publicationDate ?? existing.publicationDate) : (existing.publicationDate ?? key.publicationDate),
+                        keyType: isCurrentApple ? (key.keyType ?? existing.keyType) : (existing.keyType ?? key.keyType),
+                        keyDescription: isCurrentApple ? (key.keyDescription ?? existing.keyDescription) : (existing.keyDescription ?? key.keyDescription),
+                        required: isCurrentApple ? (key.required ?? existing.required) : (existing.required ?? key.required),
+                        defaultValue: isCurrentApple ? (key.defaultValue ?? existing.defaultValue) : (existing.defaultValue ?? key.defaultValue),
+                        possibleValues: isCurrentApple ? (key.possibleValues ?? existing.possibleValues) : (existing.possibleValues ?? key.possibleValues)
                     )
                     keyIndex[key.id] = existing
                 } else {
@@ -158,6 +171,22 @@ actor MDMUpdateService {
         }
 
         return (payloads: Array(payloadIndex.values), keys: Array(keyIndex.values))
+    }
+
+    private func isAppleSource(_ source: MDMSource) -> Bool {
+        source == .appleDeviceManagement || source == .appleDeveloperDocumentation
+    }
+
+    private func sortSource(_ source: MDMSource) -> Int {
+        // Apple sources come first in sorting
+        switch source {
+        case .appleDeviceManagement: return 0
+        case .appleDeveloperDocumentation: return 1
+        case .profileCreator: return 2
+        case .rtroutonProfiles: return 3
+        case .rodChristiansenProfiles: return 4
+        case .macNerdProfiles: return 5
+        }
     }
 
     private func enabledSourcesFromDefaults() -> Set<MDMSource> {

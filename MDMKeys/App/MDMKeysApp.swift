@@ -6,7 +6,9 @@ struct MDMKeysApp: App {
     @StateObject private var appState = AppState()
 
     init() {
-        MDMUpdateService.shared.registerBackgroundTask()
+        Task {
+            await MDMUpdateService.shared.registerBackgroundTask()
+        }
     }
 
     var body: some Scene {
@@ -20,8 +22,10 @@ struct MDMKeysApp: App {
                     }
                 }
                 .task {
+                    await appState.loadInitialCatalog()
+                    await appState.loadNotificationData()
                     await MDMNotificationService.shared.requestAuthorization()
-                    MDMUpdateService.shared.scheduleBackgroundRefresh()
+                    await MDMUpdateService.shared.scheduleBackgroundRefresh()
                 }
         }
     }

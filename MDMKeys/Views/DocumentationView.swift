@@ -26,7 +26,7 @@ struct DocumentationView: View {
                     .symbolRenderingMode(.hierarchical)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("MDM Keys")
+                    Text("Differ")
                         .font(.title2.weight(.bold))
                     Text("Apple MDM Configuration Reference")
                         .font(.subheadline)
@@ -104,7 +104,7 @@ private struct DocItem: Identifiable {
 
 private let docSections: [DocSection] = [
     DocSection(id: "overview", title: "Overview", icon: "info.circle.fill", items: [
-        DocItem("MDM Keys is a reference browser for Apple Mobile Device Management (MDM) configuration profile keys. It aggregates data from Apple's official documentation and community sources, keeping you informed when new or changed keys appear."),
+        DocItem("Differ is a reference browser for Apple Mobile Device Management (MDM) configuration profile keys. It aggregates data from Apple's official documentation and community sources, keeping you informed when new or changed keys appear."),
         DocItem("The app ships with a full bundled snapshot of the MDM catalog so it works immediately without an internet connection. A background refresh checks for changes daily and sends a notification when anything is added, updated, or removed.")
     ]),
 
@@ -123,13 +123,13 @@ private let docSections: [DocSection] = [
     ]),
 
     DocSection(id: "updates", title: "Updates Tab", icon: "bell.fill", items: [
-        DocItem("Every time MDM Keys refreshes the catalog and finds changes, an entry is added to the Updates tab. Each entry shows what was added, updated, or removed.", title: "Update History"),
+        DocItem("Every time Differ refreshes the catalog and finds changes, an entry is added to the Updates tab. Each entry shows what was added, updated, or removed.", title: "Update History"),
         DocItem("Tap an entry to see the full list of individual key changes, including which field changed and what the new value is for updated keys.", title: "Change Details"),
         DocItem("The badge on the Updates tab shows how many unread update notifications you have. Opening the tab marks all as read.", title: "Unread Count")
     ]),
 
     DocSection(id: "notifications", title: "Notifications", icon: "bell.badge.fill", items: [
-        DocItem("MDM Keys can send system notifications when the catalog changes. Enable notifications in iOS Settings > MDM Keys > Notifications.", title: "Enabling Notifications"),
+        DocItem("Differ can send system notifications when the catalog changes. Enable notifications in iOS Settings > Differ > Notifications.", title: "Enabling Notifications"),
         DocItem("Notifications fire after a background catalog refresh finds new, updated, or removed keys. The notification title and body summarise the counts and which sources and platforms were affected.", title: "Notification Content"),
         DocItem("The app icon badge shows the total count of changes from the most recent update. Opening the app clears the badge.", title: "App Badge"),
         DocItem("Background refresh is rate-limited by iOS to approximately once per day. You can also trigger a manual refresh from the Settings tab or the refresh button in the Keys tab.", title: "Refresh Frequency")
@@ -151,7 +151,7 @@ private let docSections: [DocSection] = [
     ]),
 
     DocSection(id: "offline", title: "Offline & Seed Data", icon: "wifi.slash", items: [
-        DocItem("MDM Keys ships with a full pre-built catalog snapshot (mdm_catalog_seed.json) embedded in the app. All \u{200B}browsing features work immediately with no internet connection.", title: "Bundled Catalog"),
+        DocItem("Differ ships with a full pre-built catalog snapshot (mdm_catalog_seed.json) embedded in the app. All \u{200B}browsing features work immediately with no internet connection.", title: "Bundled Catalog"),
         DocItem("The embedded bundles for Apple device-management and ProfileManifests are also included in the app, enabling a full re-index from local files without hitting the internet.", title: "Embedded Repository Bundles"),
         DocItem("After a successful live refresh, the updated catalog is saved locally. On next launch, the saved catalog loads instantly, keeping browsing fast.", title: "Cached Catalog")
     ])

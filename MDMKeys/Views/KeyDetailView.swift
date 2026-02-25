@@ -97,12 +97,40 @@ struct KeyDetailView: View {
 
             // Sources
             if !key.sources.isEmpty {
-                Section("Sources") {
+                Section {
+                    if key.sources.count > 1 {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label("Available in multiple sources", systemImage: "doc.on.doc.fill")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.blue)
+                                .padding(.vertical, 4)
+                            if hasAppleSource {
+                                Text("Apple sources are used as the primary source of truth")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 2)
+                    }
+                    
                     ForEach(key.sources) { source in
-                        Link(destination: URL(string: source.repoURL)!) {
-                            Label(source.rawValue, systemImage: source.icon)
+                        HStack {
+                            Link(destination: URL(string: source.repoURL)!) {
+                                Label(source.rawValue, systemImage: source.icon)
+                            }
+                            if isAppleSource(source) && key.sources.count > 1 {
+                                Spacer()
+                                Text("Primary")
+                                    .font(.caption2.weight(.medium))
+                                    .foregroundStyle(.blue)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(.blue.opacity(0.12), in: Capsule())
+                            }
                         }
                     }
+                } header: {
+                    Text(key.sources.count > 1 ? "Sources (\(key.sources.count))" : "Source")
                 }
             }
 
@@ -145,6 +173,14 @@ struct KeyDetailView: View {
         if let type = key.keyType { parts.append("Type: \(type)") }
         if !key.platforms.isEmpty { parts.append("Platforms: \(key.platforms.joined(separator: ", "))") }
         return parts.joined(separator: "\n")
+    }
+
+    private var hasAppleSource: Bool {
+        key.sources.contains { isAppleSource($0) }
+    }
+
+    private func isAppleSource(_ source: MDMSource) -> Bool {
+        source == .appleDeviceManagement || source == .appleDeveloperDocumentation
     }
 }
 
