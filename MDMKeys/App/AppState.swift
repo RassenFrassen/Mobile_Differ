@@ -15,6 +15,7 @@ class AppState: ObservableObject {
     @Published var isUpdatingMDMCatalog = false
     @Published var mdmUpdateError: String?
     @Published var mdmLastUpdated: Date?
+    @Published var isInitializing = true
 
     // MARK: - Settings
 
@@ -36,6 +37,7 @@ class AppState: ObservableObject {
 
     func loadInitialCatalog() async {
         logInfo("loadInitialCatalog: Starting catalog load")
+        isInitializing = true
         
         // Try saved latest snapshot first, fall back to bundled seed
         if let latest = await MDMCatalogStore.shared.loadLatestSnapshot() {
@@ -49,6 +51,10 @@ class AppState: ObservableObject {
         }
         
         logInfo("loadInitialCatalog: Complete. mdmKeys count = \(mdmKeys.count)")
+        
+        // Add a small delay to ensure smooth transition
+        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+        isInitializing = false
     }
 
     func refreshMDMCatalog() async {

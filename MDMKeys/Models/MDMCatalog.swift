@@ -87,6 +87,8 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
         case "rtroutonProfiles": self = .rtroutonProfiles
         case "rodChristiansenProfiles": self = .rodChristiansenProfiles
         case "mobileconfigProfiles": self = .rodChristiansenProfiles  // Legacy compatibility
+        case "rodchristiansen/Profiles": self = .rodChristiansenProfiles  // Legacy compatibility
+        case "mobileconfig-profiles": self = .rodChristiansenProfiles  // Legacy compatibility
         case "macNerdProfiles": self = .macNerdProfiles
         default:
             throw DecodingError.dataCorruptedError(
@@ -244,6 +246,31 @@ enum MDMProfileSampleBuilder {
         hierarchyComponents(for: keyPath).joined(separator: " > ")
     }
 
+    static func simplifiedProfile(for key: MDMKeyRecord, payloadName: String?) -> String {
+        let resolvedPayloadName = nonEmpty(payloadName)
+            ?? nonEmpty(key.payloadName)
+            ?? key.payloadType
+        
+        var lines: [String] = []
+        lines.append("Payload Type: \(key.payloadType)")
+        lines.append("Payload Name: \(resolvedPayloadName)")
+        lines.append("")
+        lines.append("Key Reference:")
+        lines.append("  \(key.keyPath)")
+        
+        if let keyType = key.keyType {
+            lines.append("  Type: \(keyType)")
+        }
+        if let required = key.required {
+            lines.append("  Required: \(required ? "Yes" : "No")")
+        }
+        if let defaultValue = key.defaultValue {
+            lines.append("  Default: \(defaultValue)")
+        }
+        
+        return lines.joined(separator: "\n")
+    }
+    
     static func profileXML(for key: MDMKeyRecord, payloadName: String?) -> String {
         let resolvedPayloadName = nonEmpty(payloadName)
             ?? nonEmpty(key.payloadName)

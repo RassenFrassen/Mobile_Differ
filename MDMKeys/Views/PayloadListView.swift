@@ -55,6 +55,7 @@ struct PayloadListView: View {
                 }
             }
             .navigationTitle("Payloads")
+            .navigationSubtitle("\(filteredPayloads.count) of \(appState.mdmPayloads.count) payloads")
             .searchable(text: $searchText, prompt: "Search payloads…")
         } detail: {
             if let payload = selectedPayload {

@@ -1,0 +1,469 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 90;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0744C19FB4E6FD13BCDAD24B /* MDMNotificationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E0C83D664C3F71FA371DDC /* MDMNotificationLog.swift */; };
+		19CBAF752AE0B9BE8AC22B6E /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 3570237706EF36E805B5A1AE /* Yams */; };
+		281FED72C8CC75DE31B0DEB4 /* MDMUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8145A76FDAF958777F111EA /* MDMUpdateService.swift */; };
+		2A7F145FBD18B5845A905F61 /* MDMSourceIngestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CBA313B1B4AD9DD1CF8AD5 /* MDMSourceIngestor.swift */; };
+		346297F0F13274307E1B2EEC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B196A4D783BFD5A91A649A /* SettingsView.swift */; };
+		4671407C43294500B92538A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D484A76079456E144D7D4A /* ContentView.swift */; };
+		4C5083D736E63AE304A3EEF6 /* SignatureStripper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622AA9593C4A5A95BBC45559 /* SignatureStripper.swift */; };
+		572B2CEDBF492A81F96E4EB5 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59F28830C5158C4BB204F2F /* AppState.swift */; };
+		644D9B48FE536CCE80E7E54B /* GitHubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C38F89881D3ACDAEFAFD2D /* GitHubService.swift */; };
+		6CE0240FC2CA4457F8291241 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B091D85ED9DEAA34A067BDE /* AppLogger.swift */; };
+		6CE71F3AAE2428F6B5C1584E /* KeyBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D004310EA37F93210ADBE1F /* KeyBrowserView.swift */; };
+		8A1E590A522A2E740F23371F /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 8FB7021AA01F11DAD8D0224F /* ZIPFoundation */; };
+		8CC8C7DA9739808E0DC58C1D /* RepositoryBundleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5FB50D10FC0ADA09D20CB0 /* RepositoryBundleService.swift */; };
+		9F1FD59C035BE4CE1CF7C63D /* DocumentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCB5071A4CCF76413584EE6 /* DocumentationView.swift */; };
+		A07486FBE700DFF9FF8DC68A /* MDMCatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DBB42329237D54531DEB9A /* MDMCatalogStore.swift */; };
+		AF79E1ADEDB5375CDB45916F /* PayloadListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CF939D477E0394F9A4EC0C /* PayloadListView.swift */; };
+		B6C694CE2011C104E68178FF /* MDMCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD3538FD110A694DEA81B82 /* MDMCatalog.swift */; };
+		B859DB00F0DBE4175D30006F /* KeyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB3FDE159D0263F7C6453D /* KeyDetailView.swift */; };
+		B98DBFD8733806B98536D6A0 /* MDMKeysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA993750698541B4DE6350D /* MDMKeysApp.swift */; };
+		C2C6BCC43091179A913825EA /* MDMNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C24035AEC2B2CB8D6EFDA /* MDMNotificationService.swift */; };
+		D8ED423211A87E67ADA08598 /* NotificationLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5930F3FE70D075837226CA3 /* NotificationLogView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		187C24035AEC2B2CB8D6EFDA /* MDMNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMNotificationService.swift; sourceTree = "<group>"; };
+		2720D40C2F4F754A00C3ED8B /* mdm_catalog_seed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = mdm_catalog_seed.json; path = Resources/mdm_catalog_seed.json; sourceTree = "<group>"; };
+		3D004310EA37F93210ADBE1F /* KeyBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyBrowserView.swift; sourceTree = "<group>"; };
+		54DBB42329237D54531DEB9A /* MDMCatalogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMCatalogStore.swift; sourceTree = "<group>"; };
+		5B091D85ED9DEAA34A067BDE /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		622AA9593C4A5A95BBC45559 /* SignatureStripper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureStripper.swift; sourceTree = "<group>"; };
+		6AD3538FD110A694DEA81B82 /* MDMCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMCatalog.swift; sourceTree = "<group>"; };
+		6CA993750698541B4DE6350D /* MDMKeysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMKeysApp.swift; sourceTree = "<group>"; };
+		70CBA313B1B4AD9DD1CF8AD5 /* MDMSourceIngestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMSourceIngestor.swift; sourceTree = "<group>"; };
+		82B196A4D783BFD5A91A649A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8CCB5071A4CCF76413584EE6 /* DocumentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationView.swift; sourceTree = "<group>"; };
+		8F5FB50D10FC0ADA09D20CB0 /* RepositoryBundleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryBundleService.swift; sourceTree = "<group>"; };
+		A59F28830C5158C4BB204F2F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		C4DF5922F58F1BD0A2A33D37 /* Differ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Differ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5930F3FE70D075837226CA3 /* NotificationLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationLogView.swift; sourceTree = "<group>"; };
+		D9D484A76079456E144D7D4A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E0E0C83D664C3F71FA371DDC /* MDMNotificationLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMNotificationLog.swift; sourceTree = "<group>"; };
+		E1EB3FDE159D0263F7C6453D /* KeyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDetailView.swift; sourceTree = "<group>"; };
+		F2C38F89881D3ACDAEFAFD2D /* GitHubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubService.swift; sourceTree = "<group>"; };
+		F6CF939D477E0394F9A4EC0C /* PayloadListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadListView.swift; sourceTree = "<group>"; };
+		F8145A76FDAF958777F111EA /* MDMUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMUpdateService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3424061430177277567E5D69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				8A1E590A522A2E740F23371F /* ZIPFoundation in Frameworks */,
+				19CBAF752AE0B9BE8AC22B6E /* Yams in Frameworks */,
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22BDAECD83BC691C5918B1CD /* MDMKeys */ = {
+			isa = PBXGroup;
+			children = (
+				2720D40C2F4F754A00C3ED8B /* mdm_catalog_seed.json */,
+				7F114494B23154269408283C /* App */,
+				414287A1EE21FF28D737BC73 /* Models */,
+				90F6DB03F0D0745C8B0F4DB4 /* Services */,
+				8C97C534E548FAA86AE3FCA3 /* Views */,
+				2720D40B2F4F746400C3ED8B /* Resources 2 */,
+			);
+			path = MDMKeys;
+			sourceTree = "<group>";
+		};
+		2720D40B2F4F746400C3ED8B /* Resources 2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Resources 2";
+			sourceTree = "<group>";
+		};
+		414287A1EE21FF28D737BC73 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6AD3538FD110A694DEA81B82 /* MDMCatalog.swift */,
+				E0E0C83D664C3F71FA371DDC /* MDMNotificationLog.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4D975139D68F47B4582A95F6 = {
+			isa = PBXGroup;
+			children = (
+				22BDAECD83BC691C5918B1CD /* MDMKeys */,
+				73169B5842A3BCCAFE1796FC /* Products */,
+			);
+			indentWidth = 4;
+			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
+		};
+		73169B5842A3BCCAFE1796FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4DF5922F58F1BD0A2A33D37 /* Differ.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7F114494B23154269408283C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A59F28830C5158C4BB204F2F /* AppState.swift */,
+				6CA993750698541B4DE6350D /* MDMKeysApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8C97C534E548FAA86AE3FCA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9D484A76079456E144D7D4A /* ContentView.swift */,
+				8CCB5071A4CCF76413584EE6 /* DocumentationView.swift */,
+				3D004310EA37F93210ADBE1F /* KeyBrowserView.swift */,
+				E1EB3FDE159D0263F7C6453D /* KeyDetailView.swift */,
+				D5930F3FE70D075837226CA3 /* NotificationLogView.swift */,
+				F6CF939D477E0394F9A4EC0C /* PayloadListView.swift */,
+				82B196A4D783BFD5A91A649A /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		90F6DB03F0D0745C8B0F4DB4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5B091D85ED9DEAA34A067BDE /* AppLogger.swift */,
+				F2C38F89881D3ACDAEFAFD2D /* GitHubService.swift */,
+				54DBB42329237D54531DEB9A /* MDMCatalogStore.swift */,
+				187C24035AEC2B2CB8D6EFDA /* MDMNotificationService.swift */,
+				70CBA313B1B4AD9DD1CF8AD5 /* MDMSourceIngestor.swift */,
+				F8145A76FDAF958777F111EA /* MDMUpdateService.swift */,
+				8F5FB50D10FC0ADA09D20CB0 /* RepositoryBundleService.swift */,
+				622AA9593C4A5A95BBC45559 /* SignatureStripper.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A7A79766607DC6BF4A8FB62F /* Differ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C81BFADE85460FC164E73AD4 /* Build configuration list for PBXNativeTarget "Differ" */;
+			buildPhases = (
+				C5EA76C3C9F892011E51486B /* Sources */,
+				3424061430177277567E5D69 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			name = Differ;
+			packageProductDependencies = (
+				8FB7021AA01F11DAD8D0224F /* ZIPFoundation */,
+				3570237706EF36E805B5A1AE /* Yams */,
+			);
+			productName = MDMKeys;
+			productReference = C4DF5922F58F1BD0A2A33D37 /* Differ.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC38703D49638DBB7A7D13C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A7A79766607DC6BF4A8FB62F = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 788C7C933634D6EEC5DBEF36 /* Build configuration list for PBXProject "Differ" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4D975139D68F47B4582A95F6;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C18B443339212910408C68F5 /* XCRemoteSwiftPackageReference "Yams" */,
+				D786CA57C30D1E9C44AB6FDB /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
+			preferredProjectObjectVersion = 90;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A7A79766607DC6BF4A8FB62F /* Differ */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C5EA76C3C9F892011E51486B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				6CE0240FC2CA4457F8291241 /* AppLogger.swift in Sources */,
+				572B2CEDBF492A81F96E4EB5 /* AppState.swift in Sources */,
+				4671407C43294500B92538A5 /* ContentView.swift in Sources */,
+				9F1FD59C035BE4CE1CF7C63D /* DocumentationView.swift in Sources */,
+				644D9B48FE536CCE80E7E54B /* GitHubService.swift in Sources */,
+				6CE71F3AAE2428F6B5C1584E /* KeyBrowserView.swift in Sources */,
+				B859DB00F0DBE4175D30006F /* KeyDetailView.swift in Sources */,
+				B6C694CE2011C104E68178FF /* MDMCatalog.swift in Sources */,
+				A07486FBE700DFF9FF8DC68A /* MDMCatalogStore.swift in Sources */,
+				B98DBFD8733806B98536D6A0 /* MDMKeysApp.swift in Sources */,
+				0744C19FB4E6FD13BCDAD24B /* MDMNotificationLog.swift in Sources */,
+				C2C6BCC43091179A913825EA /* MDMNotificationService.swift in Sources */,
+				2A7F145FBD18B5845A905F61 /* MDMSourceIngestor.swift in Sources */,
+				281FED72C8CC75DE31B0DEB4 /* MDMUpdateService.swift in Sources */,
+				D8ED423211A87E67ADA08598 /* NotificationLogView.swift in Sources */,
+				AF79E1ADEDB5375CDB45916F /* PayloadListView.swift in Sources */,
+				8CC8C7DA9739808E0DC58C1D /* RepositoryBundleService.swift in Sources */,
+				346297F0F13274307E1B2EEC /* SettingsView.swift in Sources */,
+				4C5083D736E63AE304A3EEF6 /* SignatureStripper.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		82E2D523930FDD2CDFCF49A2 /* Release configuration for PBXProject "Differ" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		99CAEECDE8BC7E741CCE2860 /* Debug configuration for PBXNativeTarget "Differ" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M74BMV295K;
+				INFOPLIST_FILE = MDMKeys/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notmoby.differ.app;
+				PRODUCT_NAME = Differ;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BAD97F58DB1A08D34DBB15F2 /* Debug configuration for PBXProject "Differ" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		FE3B066774B97CCD26DC88C7 /* Release configuration for PBXNativeTarget "Differ" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M74BMV295K;
+				INFOPLIST_FILE = MDMKeys/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notmoby.differ.app;
+				PRODUCT_NAME = Differ;
+				SDKROOT = iphoneos;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		788C7C933634D6EEC5DBEF36 /* Build configuration list for PBXProject "Differ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BAD97F58DB1A08D34DBB15F2 /* Debug configuration for PBXProject "Differ" */,
+				82E2D523930FDD2CDFCF49A2 /* Release configuration for PBXProject "Differ" */,
+			);
+			defaultConfigurationName = Debug;
+		};
+		C81BFADE85460FC164E73AD4 /* Build configuration list for PBXNativeTarget "Differ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99CAEECDE8BC7E741CCE2860 /* Debug configuration for PBXNativeTarget "Differ" */,
+				FE3B066774B97CCD26DC88C7 /* Release configuration for PBXNativeTarget "Differ" */,
+			);
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C18B443339212910408C68F5 /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.2.1;
+			};
+		};
+		D786CA57C30D1E9C44AB6FDB /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.19;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3570237706EF36E805B5A1AE /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C18B443339212910408C68F5 /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
+		8FB7021AA01F11DAD8D0224F /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D786CA57C30D1E9C44AB6FDB /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AC38703D49638DBB7A7D13C2 /* Project object */;
+}

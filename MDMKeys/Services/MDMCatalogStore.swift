@@ -11,10 +11,34 @@ actor MDMCatalogStore {
     private let previousFilename = "mdm_catalog_previous.json"
 
     func loadBundledSnapshot() async -> MDMSnapshot? {
+        logInfo("loadBundledSnapshot: Looking for mdm_catalog_seed.json in bundle")
+        
         guard let url = Bundle.main.url(forResource: "mdm_catalog_seed", withExtension: "json") else {
+            logError("loadBundledSnapshot: mdm_catalog_seed.json not found in bundle")
+            logError("Bundle path: \(Bundle.main.bundlePath)")
+            
+            // List all JSON files in the bundle
+            if let resourcePath = Bundle.main.resourcePath {
+                do {
+                    let contents = try FileManager.default.contentsOfDirectory(atPath: resourcePath)
+                    let jsonFiles = contents.filter { $0.hasSuffix(".json") }
+                    logInfo("JSON files in bundle: \(jsonFiles)")
+                } catch {
+                    logError("Could not list bundle contents: \(error)")
+                }
+            }
+            
             return nil
         }
-        return await loadSnapshot(from: url)
+        
+        logInfo("loadBundledSnapshot: Found seed file at \(url.path)")
+        let snapshot = await loadSnapshot(from: url)
+        if let snapshot {
+            logInfo("loadBundledSnapshot: Successfully loaded snapshot with \(snapshot.keys.count) keys")
+        } else {
+            logError("loadBundledSnapshot: Failed to decode snapshot from \(url.path)")
+        }
+        return snapshot
     }
 
     func loadLatestSnapshot() async -> MDMSnapshot? {

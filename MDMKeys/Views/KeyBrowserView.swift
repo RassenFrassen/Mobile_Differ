@@ -53,6 +53,7 @@ struct KeyBrowserView: View {
                 }
             }
             .navigationTitle("Differ")
+            .navigationSubtitle("\(filteredKeys.count) of \(appState.mdmKeys.count) keys")
             .searchable(text: $searchText, prompt: "Search keys, payloads, descriptions…")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
