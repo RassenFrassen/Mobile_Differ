@@ -573,7 +573,7 @@ struct CompatibilityView: View {
                     Section {
                         ForEach(compatibleKeys, id: \.id) { key in
                             NavigationLink(value: key) {
-                                KeyRowView(key: key)
+                                KeyRowView(key: key, isFavorite: false)
                             }
                         }
                     } header: {
@@ -591,7 +591,7 @@ struct CompatibilityView: View {
                         Section {
                             ForEach(incompatibleKeys, id: \.id) { key in
                                 NavigationLink(value: key) {
-                                    KeyRowView(key: key)
+                                    KeyRowView(key: key, isFavorite: false)
                                         .opacity(0.6)
                                 }
                             }

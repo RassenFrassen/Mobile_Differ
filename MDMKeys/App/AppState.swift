@@ -17,6 +17,7 @@ class AppState: ObservableObject {
     @Published var mdmLastUpdated: Date?
     @Published var isInitializing = true
     @Published var catalogRefreshStatus: String?
+    @Published var favoriteKeys: Set<String> = []
 
     // MARK: - Settings
 
@@ -124,9 +125,12 @@ class AppState: ObservableObject {
                 logWarning("refreshMDMCatalog: Suspicious diff detected - \(changes.added.count) added, \(changes.removed.count) removed. Likely data corruption. Skipping notification.")
             }
             
+            // Record changes in history
+            await KeyHistoryService.shared.recordChanges(from: changes)
+
             // Skip notifications on first launch (massive initial diff)
             let shouldNotify = !silentFirstLaunch && changes.totalCount > 0 && !isSuspicious
-            
+
             if shouldNotify {
                 let platforms = Array(Set(
                     changes.added.flatMap(\.platforms) +
@@ -206,6 +210,19 @@ class AppState: ObservableObject {
     func loadNotificationData() async {
         mdmNotificationLog = await MDMNotificationService.shared.loadLog()
         mdmNotificationUnreadCount = await MDMNotificationService.shared.loadUnreadCount()
+    }
+
+    func loadFavorites() async {
+        favoriteKeys = await FavoritesService.shared.getAllFavorites()
+    }
+
+    func toggleFavorite(_ keyID: String) async {
+        await FavoritesService.shared.toggleFavorite(keyID)
+        favoriteKeys = await FavoritesService.shared.getAllFavorites()
+    }
+
+    func isFavorite(_ keyID: String) -> Bool {
+        favoriteKeys.contains(keyID)
     }
     
     func clearCacheAndReload() async {
