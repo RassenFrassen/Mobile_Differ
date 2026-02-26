@@ -53,17 +53,17 @@ struct NotificationLogView: View {
                 NotificationEntryDetailView(entry: entry)
             } label: {
                 NotificationEntryRowView(entry: entry)
+                    .accessibilityLabel("\(entry.title). \(entry.addedCount) added, \(entry.updatedCount) updated, \(entry.removedCount) removed")
             }
         }
         .listStyle(.insetGrouped)
+        .refreshable {
+            await appState.refreshMDMCatalog()
+        }
     }
 
     private var emptyState: some View {
-        ContentUnavailableView {
-            Label("No Updates Yet", systemImage: "bell.slash")
-        } description: {
-            Text("When the MDM catalog changes, notifications will appear here.\n\nRefresh the catalog from the Keys tab to check for updates.")
-        }
+        NotificationEmptyStateView()
     }
 }
 

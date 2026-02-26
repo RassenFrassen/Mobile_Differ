@@ -1,1 +1,0 @@
-This OS X management profile disables access to the iCloud preference pane for all accounts on a particular Mac.

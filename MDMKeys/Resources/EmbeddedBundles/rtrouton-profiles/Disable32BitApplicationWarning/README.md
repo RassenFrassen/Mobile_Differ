@@ -1,1 +1,0 @@
-These macOS management profiles disable the 32-bit application warning. Please use the appropriate profile for your version of macOS.

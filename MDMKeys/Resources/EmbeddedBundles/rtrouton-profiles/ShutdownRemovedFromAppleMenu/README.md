@@ -1,1 +1,0 @@
-This OS X management profile disables the **Shutdown...** menu item in the Apple menu.

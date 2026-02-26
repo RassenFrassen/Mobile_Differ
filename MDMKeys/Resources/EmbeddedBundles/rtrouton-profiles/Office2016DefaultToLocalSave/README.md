@@ -1,1 +1,0 @@
-This management profile sets the `Open` and `Save` options in Office 2016 applications to default to **On My Mac** instead of **Online Locations**.

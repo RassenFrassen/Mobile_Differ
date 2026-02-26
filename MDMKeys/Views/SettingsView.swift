@@ -9,6 +9,22 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                // Developer / Debug
+                Section {
+                    Button(role: .destructive) {
+                        Task {
+                            HapticService.mediumImpact()
+                            await appState.clearCacheAndReload()
+                        }
+                    } label: {
+                        Label("Clear Cache & Reload", systemImage: "trash.circle")
+                    }
+                } header: {
+                    Text("Developer")
+                } footer: {
+                    Text("Clears all cached catalog data and reloads from the bundled seed file. Use this if you see corrupted data.")
+                }
+                
                 // Catalog Status
                 Section {
                     HStack {
@@ -41,14 +57,22 @@ struct SettingsView: View {
                     }
 
                     Button {
+                        HapticService.mediumImpact()
                         Task { await appState.refreshMDMCatalog() }
                     } label: {
                         if appState.isUpdatingMDMCatalog {
                             HStack {
                                 ProgressView()
                                     .controlSize(.small)
-                                Text("Refreshing…")
-                                    .foregroundStyle(.secondary)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Refreshing…")
+                                        .foregroundStyle(.secondary)
+                                    if let status = appState.catalogRefreshStatus {
+                                        Text(status)
+                                            .font(.caption2)
+                                            .foregroundStyle(.secondary.opacity(0.7))
+                                    }
+                                }
                             }
                         } else {
                             Label("Refresh Catalog Now", systemImage: "arrow.clockwise")
@@ -72,6 +96,8 @@ struct SettingsView: View {
                             UserDefaults.standard.set(enabled, forKey: "autoRefreshEnabled")
                             if enabled {
                                 MDMUpdateService.shared.scheduleBackgroundRefresh()
+                            } else {
+                                MDMUpdateService.shared.cancelBackgroundRefresh()
                             }
                         }
                 } header: {
@@ -118,6 +144,7 @@ struct SettingsView: View {
 
                         HStack {
                             Button("Save Token") {
+                                HapticService.success()
                                 appState.saveGithubToken(tokenInput)
                                 tokenFocused = false
                                 showTokenSaved = true
@@ -165,6 +192,7 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     Button("Mark All as Read") {
+                        HapticService.lightImpact()
                         Task { await appState.markNotificationsRead() }
                     }
                     .disabled(appState.mdmNotificationUnreadCount == 0)
@@ -187,6 +215,25 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("About")
+                }
+                
+                // Legal & Support
+                Section {
+                    NavigationLink {
+                        LicensesView()
+                    } label: {
+                        Label("Licenses & Attribution", systemImage: "doc.text")
+                    }
+                    // TODO: Replace with your actual privacy policy URL before App Store submission
+                    Link(destination: URL(string: "https://yourwebsite.com/privacy")!) {
+                        Label("Privacy Policy", systemImage: "hand.raised.fill")
+                    }
+                    // TODO: Replace with your actual support/contact URL before App Store submission
+                    Link(destination: URL(string: "https://yourwebsite.com/support")!) {
+                        Label("Support & Contact", systemImage: "envelope.fill")
+                    }
+                } header: {
+                    Text("Legal & Support")
                 }
             }
             .navigationTitle("Settings")

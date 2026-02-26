@@ -147,12 +147,12 @@ private let docSections: [DocSection] = [
         DocItem("Without a token, the GitHub API allows 60 requests per hour (unauthenticated). With a token, this rises to 5,000 requests per hour.", title: "Why Use a Token?"),
         DocItem("Go to github.com/settings/tokens and create a Personal Access Token (classic or fine-grained) with no special permissions — read-only public repository access is sufficient.", title: "Creating a Token"),
         DocItem("Enter your token in Settings > GitHub Token and tap Save. It is stored in UserDefaults on your device and never transmitted anywhere other than api.github.com request headers.", title: "Storing the Token"),
-        DocItem("A token is only required if you use all six data sources and refresh frequently. For occasional refreshes with Apple sources only, no token is needed.", title: "Do I Need a Token?")
+        DocItem("A token is only required if you refresh frequently or use multiple community sources. For occasional refreshes with Apple sources only, no token is needed.", title: "Do I Need a Token?")
     ]),
 
     DocSection(id: "offline", title: "Offline & Seed Data", icon: "wifi.slash", items: [
         DocItem("Differ ships with a full pre-built catalog snapshot (mdm_catalog_seed.json) embedded in the app. All \u{200B}browsing features work immediately with no internet connection.", title: "Bundled Catalog"),
-        DocItem("The embedded bundles for Apple device-management and ProfileManifests are also included in the app, enabling a full re-index from local files without hitting the internet.", title: "Embedded Repository Bundles"),
+
         DocItem("After a successful live refresh, the updated catalog is saved locally. On next launch, the saved catalog loads instantly, keeping browsing fast.", title: "Cached Catalog")
     ])
 ]

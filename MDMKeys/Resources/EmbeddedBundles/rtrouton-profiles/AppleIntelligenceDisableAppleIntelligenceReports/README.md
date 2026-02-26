@@ -1,1 +1,0 @@
-This management profile disables the ability to generate reports on Apple Intelligence on macOS Sequoia 15.4 and later.

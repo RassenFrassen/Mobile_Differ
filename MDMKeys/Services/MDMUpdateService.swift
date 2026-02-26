@@ -31,6 +31,12 @@ actor MDMUpdateService {
 
     func scheduleBackgroundRefresh() {
         #if os(iOS)
+        // Only schedule if auto-refresh is enabled
+        guard isAutoRefreshEnabled() else {
+            cancelBackgroundRefresh()
+            return
+        }
+        
         let request = BGAppRefreshTaskRequest(identifier: taskIdentifier)
         request.earliestBeginDate = Date().addingTimeInterval(60 * 60)
         do {
@@ -38,6 +44,12 @@ actor MDMUpdateService {
         } catch {
             // Non-fatal
         }
+        #endif
+    }
+    
+    func cancelBackgroundRefresh() {
+        #if os(iOS)
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier)
         #endif
     }
 
@@ -86,8 +98,14 @@ actor MDMUpdateService {
             task.setTaskCompleted(success: false)
         }
 
+        // Check if auto-refresh is still enabled
+        guard isAutoRefreshEnabled() else {
+            task.setTaskCompleted(success: true)
+            return
+        }
+
         let snapshot = await updateCatalog(
-            token: UserDefaults.standard.string(forKey: "githubToken"),
+            token: try? KeychainService.get(key: "githubToken"),
             enabledSources: enabledSourcesFromDefaults()
         )
         if let snapshot {
@@ -187,6 +205,14 @@ actor MDMUpdateService {
         }
     }
 
+    private func isAutoRefreshEnabled() -> Bool {
+        // Default to true if never set
+        if UserDefaults.standard.object(forKey: "autoRefreshEnabled") == nil {
+            return true
+        }
+        return UserDefaults.standard.bool(forKey: "autoRefreshEnabled")
+    }
+    
     private func enabledSourcesFromDefaults() -> Set<MDMSource> {
         let key = "mdmEnabledSources"
         if let raw = UserDefaults.standard.array(forKey: key) as? [String] {

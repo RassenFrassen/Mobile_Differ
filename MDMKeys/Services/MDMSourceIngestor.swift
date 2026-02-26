@@ -207,7 +207,7 @@ actor MDMSourceIngestor {
             )
             keys[topicKey.id] = topicKey
 
-            let pagePayloadType = developerDocsPayloadType(for: path)
+            let pagePayloadType = developerDocsPayloadType(for: path, profileExample: contentDetails.profileExample)
             payloads[pagePayloadType] = MDMPayloadRecord(
                 id: pagePayloadType,
                 name: title,
@@ -457,11 +457,49 @@ actor MDMSourceIngestor {
         return sectionByURL[parent]
     }
 
-    private func developerDocsPayloadType(for path: String) -> String {
+    private func developerDocsPayloadType(for path: String, profileExample: String?) -> String {
+        // First, try to extract PayloadType from the profile example XML
+        if let example = profileExample, let extracted = extractPayloadTypeFromXML(example) {
+            return extracted
+        }
+        
+        // Fallback: create a synthetic payload type for documentation-only pages
+        // that don't have profile examples (like topic pages)
         let relative = developerDocsRelativePath(path)
-            .replacingOccurrences(of: "/", with: ".")
-            .replacingOccurrences(of: "-", with: "_")
-        return "docs.devicemanagement.\(relative)"
+        return "docs.devicemanagement.\(relative.replacingOccurrences(of: "/", with: ".").replacingOccurrences(of: "-", with: "_"))"
+    }
+    
+    private func extractPayloadTypeFromXML(_ xml: String) -> String? {
+        // Look for <key>PayloadType</key> followed by <string>...</string>
+        // This will find ALL PayloadType keys - we want the one from PayloadContent, not the root Configuration
+        let pattern = #"<key>PayloadType</key>\s*<string>([^<]+)</string>"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive, .dotMatchesLineSeparators]) else {
+            return nil
+        }
+        
+        let nsString = xml as NSString
+        let range = NSRange(location: 0, length: nsString.length)
+        
+        let matches = regex.matches(in: xml, options: [], range: range)
+        
+        // Look through all PayloadType values found
+        for match in matches where match.numberOfRanges > 1 {
+            let payloadTypeRange = match.range(at: 1)
+            let payloadType = nsString.substring(with: payloadTypeRange)
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            // Skip the root "Configuration" PayloadType and look for actual payload types
+            guard !payloadType.isEmpty, 
+                  payloadType.contains("."),
+                  payloadType.lowercased() != "configuration" else {
+                continue
+            }
+            
+            // Return the first real payload type found (should be from PayloadContent)
+            return payloadType
+        }
+        
+        return nil
     }
 
     private func developerDocsRelativePath(_ path: String) -> String {

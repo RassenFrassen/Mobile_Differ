@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
 
     var body: some View {
         ZStack {
@@ -37,6 +38,9 @@ struct ContentView: View {
                 }
                 .tabViewStyle(.sidebarAdaptable)
                 .transition(.opacity)
+                .sheet(isPresented: $showOnboarding) {
+                    OnboardingView()
+                }
             }
         }
         .animation(.easeInOut(duration: 0.3), value: appState.isInitializing)

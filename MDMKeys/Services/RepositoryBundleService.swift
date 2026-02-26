@@ -109,13 +109,58 @@ actor RepositoryBundleService {
     }
 
     /// Gets the path to an embedded bundle resource bundled inside the app.
-    func getEmbeddedBundlePath(for source: MDMSource) -> URL? {
+    /// If the bundle is a ZIP file, extracts it to the bundles directory first.
+    func getEmbeddedBundlePath(for source: MDMSource) async throws -> URL? {
         guard let bundleName = embeddedBundleName(for: source) else { return nil }
+        
+        // First check if we already have an extracted copy in the bundles directory
+        if let extracted = try? await getExtractedEmbeddedBundlePath(for: source),
+           fileManager.fileExists(atPath: extracted.path) {
+            return extracted
+        }
+        
+        // Check for embedded ZIP file
+        if let zipURL = Bundle.main.url(forResource: bundleName, withExtension: "zip") {
+            // Extract the ZIP to bundles directory
+            return try await extractEmbeddedZip(zipURL: zipURL, for: source)
+        }
+        
+        // Fallback to looking for unzipped embedded bundle (for backwards compatibility)
         return Bundle.main.url(
             forResource: bundleName,
             withExtension: nil,
             subdirectory: "EmbeddedBundles"
         )
+    }
+    
+    /// Extracts an embedded ZIP bundle to the bundles directory
+    private func extractEmbeddedZip(zipURL: URL, for source: MDMSource) async throws -> URL {
+        let bundlesDir = try getBundlesDirectory()
+        guard let bundleName = embeddedBundleName(for: source) else {
+            throw GitHubError.networkError("Invalid source")
+        }
+        
+        let extractedDir = bundlesDir.appendingPathComponent(bundleName, isDirectory: true)
+        
+        // If already extracted, return it
+        if fileManager.fileExists(atPath: extractedDir.path) {
+            return extractedDir
+        }
+        
+        // Extract the ZIP
+        try fileManager.createDirectory(at: extractedDir, withIntermediateDirectories: true)
+        try fileManager.unzipItem(at: zipURL, to: extractedDir)
+        
+        return extractedDir
+    }
+    
+    /// Gets the path to an already-extracted embedded bundle in the bundles directory
+    private func getExtractedEmbeddedBundlePath(for source: MDMSource) async throws -> URL? {
+        let bundlesDir = try getBundlesDirectory()
+        guard let bundleName = embeddedBundleName(for: source) else { return nil }
+        
+        let extractedPath = bundlesDir.appendingPathComponent(bundleName, isDirectory: true)
+        return fileManager.fileExists(atPath: extractedPath.path) ? extractedPath : nil
     }
 
     private func embeddedBundleName(for source: MDMSource) -> String? {
@@ -131,12 +176,12 @@ actor RepositoryBundleService {
         }
     }
 
-    func hasOfflineBundle(for source: MDMSource) -> Bool {
+    func hasOfflineBundle(for source: MDMSource) async -> Bool {
         if let downloaded = try? getDownloadedBundlePath(for: source),
            fileManager.fileExists(atPath: downloaded.path) {
             return true
         }
-        if let embedded = getEmbeddedBundlePath(for: source),
+        if let embedded = try? await getEmbeddedBundlePath(for: source),
            fileManager.fileExists(atPath: embedded.path) {
             return true
         }
@@ -156,11 +201,11 @@ actor RepositoryBundleService {
         return fileManager.fileExists(atPath: path.path) ? path : nil
     }
 
-    func getBundlePath(for source: MDMSource) throws -> URL? {
+    func getBundlePath(for source: MDMSource) async throws -> URL? {
         if let downloaded = try getDownloadedBundlePath(for: source) {
             return downloaded
         }
-        return getEmbeddedBundlePath(for: source)
+        return try await getEmbeddedBundlePath(for: source)
     }
 
     /// Lists all files in a bundle with given extensions

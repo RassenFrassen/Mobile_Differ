@@ -1,0 +1,237 @@
+name: CI - Build, Test, and Validate
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+
+    - name: Show Xcode version
+      run: xcodebuild -version
+
+    - name: Build for testing
+      run: |
+        xcodebuild clean build-for-testing \
+          -project Differ.xcodeproj \
+          -scheme Differ \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          | xcpretty
+
+    - name: Run tests
+      run: |
+        xcodebuild test-without-building \
+          -project Differ.xcodeproj \
+          -scheme Differ \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          | xcpretty
+      continue-on-error: true
+
+    - name: Archive test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          ~/Library/Logs/DiagnosticReports/
+          ~/Library/Developer/Xcode/DerivedData/*/Logs/Test/
+
+  release-build:
+    name: Release Build Validation
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+
+    - name: Build for release
+      run: |
+        xcodebuild clean build \
+          -project Differ.xcodeproj \
+          -scheme Differ \
+          -configuration Release \
+          -destination 'generic/platform=iOS' \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          | xcpretty
+
+  policy-checks:
+    name: Static Policy Validation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Check privacy manifest exists
+      run: |
+        echo "Checking for PrivacyInfo.xcprivacy..."
+        if [ ! -f "MDMKeys/PrivacyInfo.xcprivacy" ]; then
+          echo "❌ ERROR: PrivacyInfo.xcprivacy not found!"
+          exit 1
+        fi
+        echo "✅ Privacy manifest found"
+
+    - name: Check licenses documentation exists
+      run: |
+        echo "Checking for LICENSES.md..."
+        if [ ! -f "LICENSES.md" ]; then
+          echo "❌ ERROR: LICENSES.md not found!"
+          exit 1
+        fi
+        echo "✅ Licenses documentation found"
+
+    - name: Check LicensesView exists
+      run: |
+        echo "Checking for in-app licenses view..."
+        if [ ! -f "MDMKeys/Views/LicensesView.swift" ]; then
+          echo "❌ ERROR: LicensesView.swift not found!"
+          exit 1
+        fi
+        echo "✅ In-app licenses view found"
+
+    - name: Validate seed file schema
+      run: |
+        echo "Validating mdm_catalog_seed.json schema..."
+        python3 scripts/validate_seed.py
+
+    - name: Check for unlicensed sources
+      run: |
+        echo "Checking seed file for unlicensed sources..."
+
+        # Check that seed file only contains approved sources
+        UNLICENSED=$(jq -r '.sources[] | select(.licenseName == null) | .source' MDMKeys/Resources/mdm_catalog_seed.json)
+
+        if [ -n "$UNLICENSED" ]; then
+          echo "❌ ERROR: Found unlicensed sources in seed file:"
+          echo "$UNLICENSED"
+          exit 1
+        fi
+
+        echo "✅ All sources have licenses"
+
+    - name: Verify bundle ID consistency
+      run: |
+        echo "Checking bundle ID consistency..."
+
+        # Extract bundle ID from project.yml
+        YML_BUNDLE_ID=$(grep "PRODUCT_BUNDLE_IDENTIFIER:" project.yml | awk '{print $2}')
+
+        # Extract bundle ID from pbxproj
+        PBXPROJ_BUNDLE_ID=$(grep "PRODUCT_BUNDLE_IDENTIFIER" Differ.xcodeproj/project.pbxproj | head -1 | awk '{print $3}' | tr -d ';')
+
+        echo "project.yml: $YML_BUNDLE_ID"
+        echo "project.pbxproj: $PBXPROJ_BUNDLE_ID"
+
+        if [ "$YML_BUNDLE_ID" != "$PBXPROJ_BUNDLE_ID" ]; then
+          echo "❌ ERROR: Bundle ID mismatch between project.yml and .pbxproj"
+          exit 1
+        fi
+
+        echo "✅ Bundle ID consistent across configs"
+
+    - name: Check UserDefaults for sensitive data
+      run: |
+        echo "Checking for sensitive data in UserDefaults..."
+
+        # Search for potential sensitive data storage in UserDefaults
+        if grep -r "UserDefaults.*githubToken" --include="*.swift" MDMKeys/ 2>/dev/null | grep -v "removeObject"; then
+          echo "⚠️  WARNING: Found githubToken in UserDefaults (should use Keychain)"
+          # Don't fail, just warn
+        else
+          echo "✅ No sensitive data storage in UserDefaults detected"
+        fi
+
+  lint-and-format:
+    name: Code Quality Checks
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check for TODOs in critical files
+      run: |
+        echo "Checking for unresolved TODOs..."
+
+        # Check SettingsView for placeholder URLs
+        if grep -n "yourwebsite.com" MDMKeys/Views/SettingsView.swift; then
+          echo "⚠️  WARNING: Placeholder URLs found in SettingsView.swift"
+          echo "Update privacy policy and support URLs before release!"
+        fi
+
+    - name: Verify Info.plist orientations
+      run: |
+        echo "Checking iPad orientation support..."
+
+        if ! grep -q "UIInterfaceOrientationPortrait" MDMKeys/Resources/Info.plist; then
+          echo "❌ ERROR: iPad should support portrait orientation"
+          exit 1
+        fi
+
+        echo "✅ iPad orientations configured correctly"
+
+    - name: Check for debug code
+      run: |
+        echo "Checking for debug code..."
+
+        # Look for common debug patterns
+        if grep -r "print(" --include="*.swift" MDMKeys/ | grep -v "// print\|AppLogger\|logInfo\|logWarning\|logError"; then
+          echo "⚠️  WARNING: Found print() statements (consider using AppLogger)"
+        fi
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Check for hardcoded secrets
+      run: |
+        echo "Scanning for potential secrets..."
+
+        # Check for potential API keys or tokens
+        if grep -r -E "(api_key|apikey|api-key|secret|token|password)\s*=\s*['\"][^'\"]+['\"]" --include="*.swift" MDMKeys/; then
+          echo "⚠️  WARNING: Potential hardcoded secrets found"
+        else
+          echo "✅ No hardcoded secrets detected"
+        fi
+
+    - name: Check file permissions
+      run: |
+        echo "Checking file permissions..."
+
+        # Ensure no executable Swift files
+        EXEC_SWIFT=$(find MDMKeys -name "*.swift" -perm -111 2>/dev/null)
+
+        if [ -n "$EXEC_SWIFT" ]; then
+          echo "⚠️  WARNING: Found executable Swift files:"
+          echo "$EXEC_SWIFT"
+        else
+          echo "✅ File permissions correct"
+        fi

@@ -1,1 +1,0 @@
-This management profile activates Thomson Reuter's EndNote X7 bibliography software.

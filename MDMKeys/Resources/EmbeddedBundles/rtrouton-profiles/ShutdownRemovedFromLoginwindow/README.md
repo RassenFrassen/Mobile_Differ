@@ -1,1 +1,0 @@
-This OS X management profile disables the **Shutdown** button and prevents it from appearing at the Loginwindow.

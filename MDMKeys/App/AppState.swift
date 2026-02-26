@@ -16,10 +16,11 @@ class AppState: ObservableObject {
     @Published var mdmUpdateError: String?
     @Published var mdmLastUpdated: Date?
     @Published var isInitializing = true
+    @Published var catalogRefreshStatus: String?
 
     // MARK: - Settings
 
-    @Published var githubToken: String = UserDefaults.standard.string(forKey: "githubToken") ?? ""
+    @Published var githubToken: String = AppState.loadGithubToken()
     @Published var enabledMDMSources: Set<MDMSource> = AppState.loadEnabledMDMSources()
     @Published var autoRefreshEnabled: Bool = {
         if UserDefaults.standard.object(forKey: "autoRefreshEnabled") == nil { return true }
@@ -39,7 +40,28 @@ class AppState: ObservableObject {
         logInfo("loadInitialCatalog: Starting catalog load")
         isInitializing = true
         
-        // Try saved latest snapshot first, fall back to bundled seed
+        // Check if this is first launch
+        let isFirstLaunch = !UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        
+        // On first launch, load bundled seed then immediately refresh to extract embedded bundles
+        if isFirstLaunch {
+            logInfo("loadInitialCatalog: First launch detected")
+            UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+            
+            // Load bundled seed to show something during refresh
+            if let seed = await MDMCatalogStore.shared.loadBundledSnapshot() {
+                logInfo("loadInitialCatalog: Loaded bundled seed with \(seed.keys.count) keys")
+                apply(snapshot: seed)
+            }
+            
+            // Keep showing loading screen while refreshing to extract embedded bundles
+            logInfo("loadInitialCatalog: Refreshing catalog to extract embedded bundles")
+            await refreshMDMCatalog(silentFirstLaunch: true)
+            isInitializing = false
+            return
+        }
+        
+        // Subsequent launches: Try saved latest snapshot first, fall back to bundled seed
         if let latest = await MDMCatalogStore.shared.loadLatestSnapshot() {
             logInfo("loadInitialCatalog: Loaded latest snapshot with \(latest.keys.count) keys")
             apply(snapshot: latest)
@@ -47,7 +69,12 @@ class AppState: ObservableObject {
             logInfo("loadInitialCatalog: Loaded bundled seed with \(seed.keys.count) keys")
             apply(snapshot: seed)
         } else {
-            logError("loadInitialCatalog: Failed to load any catalog snapshot")
+            logWarning("loadInitialCatalog: No valid cached data found (migration may have cleared old format)")
+            logInfo("loadInitialCatalog: Will trigger automatic refresh to fetch fresh data")
+            // Migration scenario: cached data was cleared, need to fetch fresh
+            isInitializing = false
+            await refreshMDMCatalog()
+            return
         }
         
         logInfo("loadInitialCatalog: Complete. mdmKeys count = \(mdmKeys.count)")
@@ -57,20 +84,25 @@ class AppState: ObservableObject {
         isInitializing = false
     }
 
-    func refreshMDMCatalog() async {
+    func refreshMDMCatalog(silentFirstLaunch: Bool = false) async {
         guard !isUpdatingMDMCatalog else { return }
         isUpdatingMDMCatalog = true
         mdmUpdateError = nil
+        catalogRefreshStatus = "Preparing to refresh..."
 
         let token = githubToken.isEmpty ? nil : githubToken
         let latestSnapshot = await MDMCatalogStore.shared.loadLatestSnapshot()
         let bundledSnapshot = await MDMCatalogStore.shared.loadBundledSnapshot()
         let previous = latestSnapshot ?? bundledSnapshot
 
+        catalogRefreshStatus = "Extracting embedded bundles..."
+        
         let snapshot = await MDMUpdateService.shared.updateCatalog(
             token: token,
             enabledSources: enabledMDMSources
         )
+        
+        catalogRefreshStatus = "Processing catalog data..."
 
         if let snapshot {
             await MDMCatalogStore.shared.promoteLatestToPrevious()
@@ -82,7 +114,20 @@ class AppState: ObservableObject {
             mdmNewKeys = changes.added
             mdmLastUpdated = Date()
 
-            if changes.totalCount > 0 {
+            // Detect suspicious diff (likely data corruption or format change)
+            let isSuspicious = previous != nil && 
+                               changes.added.count > 1000 && 
+                               changes.removed.count > 1000 &&
+                               abs(changes.added.count - changes.removed.count) < 500
+            
+            if isSuspicious {
+                logWarning("refreshMDMCatalog: Suspicious diff detected - \(changes.added.count) added, \(changes.removed.count) removed. Likely data corruption. Skipping notification.")
+            }
+            
+            // Skip notifications on first launch (massive initial diff)
+            let shouldNotify = !silentFirstLaunch && changes.totalCount > 0 && !isSuspicious
+            
+            if shouldNotify {
                 let platforms = Array(Set(
                     changes.added.flatMap(\.platforms) +
                     changes.updated.flatMap { $0.after.platforms } +
@@ -146,9 +191,10 @@ class AppState: ObservableObject {
             mdmNotificationLog = await MDMNotificationService.shared.loadLog()
             mdmNotificationUnreadCount = await MDMNotificationService.shared.loadUnreadCount()
         } else {
-            mdmUpdateError = "Could not refresh MDM catalog. Check your internet connection."
+            mdmUpdateError = "Unable to refresh the catalog. Please check your internet connection and try again. If you have rate limits, consider adding a GitHub token in Settings."
         }
 
+        catalogRefreshStatus = nil
         isUpdatingMDMCatalog = false
     }
 
@@ -161,12 +207,34 @@ class AppState: ObservableObject {
         mdmNotificationLog = await MDMNotificationService.shared.loadLog()
         mdmNotificationUnreadCount = await MDMNotificationService.shared.loadUnreadCount()
     }
+    
+    func clearCacheAndReload() async {
+        // Clear cached snapshots
+        await MDMCatalogStore.shared.clearCache()
+        
+        // Clear notification log and reset badge
+        await MDMNotificationService.shared.clearLog()
+        await MDMNotificationService.shared.markAllAsRead()
+        mdmNotificationLog = []
+        mdmNotificationUnreadCount = 0
+        
+        // Reload from bundled seed
+        if let seed = await MDMCatalogStore.shared.loadBundledSnapshot() {
+            apply(snapshot: seed)
+            mdmLastUpdated = nil
+            mdmNewKeys = []
+            logInfo("clearCacheAndReload: Reloaded from bundled seed with \(seed.keys.count) keys")
+        }
+    }
 
     // MARK: - Settings Persistence
 
     func saveGithubToken(_ token: String) {
         githubToken = token
-        UserDefaults.standard.set(token, forKey: "githubToken")
+        // Save to Keychain for security
+        try? KeychainService.save(key: "githubToken", value: token)
+        // Remove from UserDefaults if it was stored there previously
+        UserDefaults.standard.removeObject(forKey: "githubToken")
     }
 
     func toggleSource(_ source: MDMSource) {
@@ -197,5 +265,23 @@ class AppState: ObservableObject {
             if !sources.isEmpty { return Set(sources) }
         }
         return Set(MDMSource.allCases)
+    }
+    
+    static func loadGithubToken() -> String {
+        // Try to load from Keychain first
+        if let token = try? KeychainService.get(key: "githubToken"), !token.isEmpty {
+            return token
+        }
+        
+        // Migrate from UserDefaults if it exists
+        if let token = UserDefaults.standard.string(forKey: "githubToken"), !token.isEmpty {
+            // Save to Keychain
+            try? KeychainService.save(key: "githubToken", value: token)
+            // Remove from UserDefaults
+            UserDefaults.standard.removeObject(forKey: "githubToken")
+            return token
+        }
+        
+        return ""
     }
 }

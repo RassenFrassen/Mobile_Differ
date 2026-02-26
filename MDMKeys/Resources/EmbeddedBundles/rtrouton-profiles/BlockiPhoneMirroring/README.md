@@ -1,1 +1,0 @@
-This management profile disables [iPhone mirroring](https://support.apple.com/120421) on macOS Sequoia and later.

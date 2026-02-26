@@ -1,1 +1,0 @@
-This macOS management profile disables the 32-bit application warning in macOS Mojave.

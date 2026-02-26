@@ -1,1 +1,0 @@
-This macOS management profile disables external accounts on a particular Mac. External accounts are accounts on a Mac with account information and user folders that are stored on a local drive that is different from the Mac's boot drive.

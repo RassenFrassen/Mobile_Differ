@@ -92,9 +92,13 @@ struct KeyBrowserView: View {
         List(filteredKeys, selection: $selectedKey) { key in
             NavigationLink(value: key) {
                 KeyRowView(key: key)
+                    .accessibilityLabel("\(key.key). \(key.payloadType). Platforms: \(key.platforms.joined(separator: ", "))")
             }
         }
         .listStyle(.insetGrouped)
+        .refreshable {
+            await appState.refreshMDMCatalog()
+        }
         .overlay {
             if appState.isUpdatingMDMCatalog {
                 ProgressView("Refreshing catalog…")
@@ -104,26 +108,28 @@ struct KeyBrowserView: View {
         }
         .overlay {
             if !appState.isUpdatingMDMCatalog && filteredKeys.isEmpty && !searchText.isEmpty {
-                ContentUnavailableView.search(text: searchText)
+                SearchEmptyStateView(searchText: searchText)
             }
         }
     }
 
     private var emptyState: some View {
-        ContentUnavailableView {
-            Label("No Keys", systemImage: "key.horizontal")
-        } description: {
-            Text("Pull down to refresh the catalog, or tap the refresh button.")
-        } actions: {
-            Button("Refresh Catalog") {
-                Task { await appState.refreshMDMCatalog() }
+        Group {
+            if let error = appState.mdmUpdateError {
+                NetworkErrorStateView(message: error) {
+                    Task { await appState.refreshMDMCatalog() }
+                }
+            } else {
+                CatalogEmptyStateView {
+                    Task { await appState.refreshMDMCatalog() }
+                }
             }
-            .buttonStyle(.borderedProminent)
         }
     }
 
     private var filterButton: some View {
         Button {
+            HapticService.lightImpact()
             showFilters = true
         } label: {
             Image(systemName: activeFilterCount > 0 ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
@@ -133,6 +139,7 @@ struct KeyBrowserView: View {
 
     private var refreshButton: some View {
         Button {
+            HapticService.mediumImpact()
             Task { await appState.refreshMDMCatalog() }
         } label: {
             Image(systemName: "arrow.clockwise")
@@ -155,39 +162,44 @@ struct KeyRowView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                Text(displayName)
-                    .font(.body.weight(.medium))
+        HStack(spacing: 12) {
+            PayloadIcon(payloadType: key.payloadType, sources: key.sources)
+                .frame(width: 32, height: 32)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 6) {
+                    Text(displayName)
+                        .font(.body.weight(.medium))
+                        .lineLimit(1)
+
+                    if key.isDeprecated {
+                        Text("Deprecated")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color.orange, in: Capsule())
+                    }
+                    if key.required == true {
+                        Text("Required")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color.red, in: Capsule())
+                    }
+                }
+
+                Text(key.payloadType)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
                     .lineLimit(1)
 
-                if key.isDeprecated {
-                    Text("Deprecated")
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2)
-                        .background(Color.orange, in: Capsule())
-                }
-                if key.required == true {
-                    Text("Required")
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2)
-                        .background(Color.red, in: Capsule())
-                }
-            }
-
-            Text(key.payloadType)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-
-            if !key.platforms.isEmpty {
-                HStack(spacing: 4) {
-                    ForEach(key.platforms.prefix(4), id: \.self) { platform in
-                        PlatformBadge(platform: platform)
+                if !key.platforms.isEmpty {
+                    HStack(spacing: 4) {
+                        ForEach(key.platforms.prefix(4), id: \.self) { platform in
+                            PlatformBadge(platform: platform)
+                        }
                     }
                 }
             }
@@ -208,6 +220,7 @@ struct PlatformBadge: View {
             .padding(.horizontal, 5)
             .padding(.vertical, 2)
             .background(color.opacity(0.12), in: Capsule())
+            .accessibilityLabel(platform)
     }
 
     private var shortName: String {

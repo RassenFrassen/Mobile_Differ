@@ -1,1 +1,0 @@
-This macOS management profile sets the OS login window to display username and password blanks, in place of displaying icons associated with the Mac's user accounts.

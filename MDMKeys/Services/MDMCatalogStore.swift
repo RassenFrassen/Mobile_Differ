@@ -32,18 +32,35 @@ actor MDMCatalogStore {
         }
         
         logInfo("loadBundledSnapshot: Found seed file at \(url.path)")
-        let snapshot = await loadSnapshot(from: url)
-        if let snapshot {
-            logInfo("loadBundledSnapshot: Successfully loaded snapshot with \(snapshot.keys.count) keys")
-        } else {
+        guard let snapshot = await loadSnapshot(from: url) else {
             logError("loadBundledSnapshot: Failed to decode snapshot from \(url.path)")
+            return nil
         }
+        
+        // Migration: Check if bundled seed contains old docs.devicemanagement.* payload types
+        if await needsMigration(snapshot) {
+            logWarning("loadBundledSnapshot: Bundled seed has old format with docs.* payloads")
+            logWarning("loadBundledSnapshot: App will need to fetch fresh data from sources")
+            // Return nil so the app knows to fetch fresh data
+            return nil
+        }
+        
+        logInfo("loadBundledSnapshot: Successfully loaded snapshot with \(snapshot.keys.count) keys")
         return snapshot
     }
 
     func loadLatestSnapshot() async -> MDMSnapshot? {
         guard let url = latestURL() else { return nil }
-        return await loadSnapshot(from: url)
+        guard let snapshot = await loadSnapshot(from: url) else { return nil }
+        
+        // Migration: Check if snapshot contains old docs.devicemanagement.* payload types
+        if await needsMigration(snapshot) {
+            logInfo("Detected old docs.devicemanagement.* payload types - clearing cache for migration")
+            await clearCache()
+            return nil
+        }
+        
+        return snapshot
     }
 
     func loadPreviousSnapshot() async -> MDMSnapshot? {
@@ -65,6 +82,24 @@ actor MDMCatalogStore {
         if fm.fileExists(atPath: latest.path) {
             try? fm.copyItem(at: latest, to: previous)
         }
+    }
+    
+    func clearCache() async {
+        let fm = FileManager.default
+        
+        // Remove latest snapshot
+        if let latest = latestURL(), fm.fileExists(atPath: latest.path) {
+            try? fm.removeItem(at: latest)
+            logInfo("clearCache: Removed latest snapshot")
+        }
+        
+        // Remove previous snapshot
+        if let previous = previousURL(), fm.fileExists(atPath: previous.path) {
+            try? fm.removeItem(at: previous)
+            logInfo("clearCache: Removed previous snapshot")
+        }
+        
+        logInfo("clearCache: Cache cleared successfully")
     }
 
     func diffNewKeys(latest: MDMSnapshot, previous: MDMSnapshot?) -> [MDMKeyRecord] {
@@ -303,5 +338,23 @@ actor MDMCatalogStore {
         guard let value else { return nil }
         let normalized = value.trimmingCharacters(in: .whitespacesAndNewlines)
         return normalized.isEmpty ? nil : normalized
+    }
+    
+    private func needsMigration(_ snapshot: MDMSnapshot) async -> Bool {
+        // Check if we have a significant number of docs.devicemanagement.* payloads
+        // This indicates the snapshot was created before the PayloadType extraction fix
+        let docsPayloadCount = snapshot.payloads.filter { 
+            $0.payloadType.hasPrefix("docs.devicemanagement.") 
+        }.count
+        
+        // If more than 10 docs.* payloads exist, this is from the old format
+        // (Topic pages will still have docs.* but there should only be a few)
+        let needsMigration = docsPayloadCount > 10
+        
+        if needsMigration {
+            logInfo("needsMigration: Found \(docsPayloadCount) docs.devicemanagement.* payloads - migration needed")
+        }
+        
+        return needsMigration
     }
 }

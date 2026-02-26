@@ -1,0 +1,31 @@
+Required Actions:
+
+1. Create Privacy Policy Page
+   • Host a privacy policy web page
+   • Update SettingsView.swift line 192: Replace "https://yourwebsite​.com​/privacy" with your actual URL
+   • Cover: what data is collected (GitHub token stored locally), how it's used, that it's stored on-device only
+
+2. Create Support Page
+   • Host a support/contact web page or use a GitHub Issues URL
+   • Update SettingsView.swift line 196: Replace "https://yourwebsite​.com​/support" with your actual URL
+   • Can be as simple as a GitHub repository link or email contact form
+
+3. App Store Connect - App Privacy
+   • Complete the App Privacy questionnaire:
+      • Data Not Collected: Select this if you only store data locally (GitHub token in UserDefaults)
+      • Third-Party APIs: Declare GitHub API usage (public data only)
+   • Enter Privacy Policy URL (same as in-app link)
+   • Enter Support URL (same as in-app link)
+
+Privacy Manifest Details
+
+The Privacy​Info​.xcprivacy declares:
+• UserDefaults reason CA92.1: "Accessing user defaults to read and write information that is only accessible to the app itself"
+   • Used for: Storing GitHub token, enabled sources, catalog cache, notification preferences
+
+This is the correct declaration for your app's local-only data storage.
+
+Build Status
+✅ Build succeeds with all privacy additions
+
+The app now has the privacy infrastructure in place, but you must add your actual Privacy Policy and Support URLs before submitting to the App Store.

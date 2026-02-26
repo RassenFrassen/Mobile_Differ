@@ -1,1 +1,0 @@
-This macOS management profile disables the floating thumbnail preview for screenshots for all accounts on a particular Mac.

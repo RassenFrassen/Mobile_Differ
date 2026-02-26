@@ -28,14 +28,14 @@ struct PayloadListView: View {
     }
 
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: .constant(.all)) {
             Group {
                 if appState.mdmPayloads.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Payloads", systemImage: "doc.text")
-                    } description: {
-                        Text("Tap refresh in the Keys tab to load the MDM catalog.")
+                    CatalogEmptyStateView {
+                        Task { await appState.refreshMDMCatalog() }
                     }
+                } else if filteredPayloads.isEmpty && !searchText.isEmpty {
+                    SearchEmptyStateView(searchText: searchText)
                 } else {
                     List(selection: $selectedPayload) {
                         if allCategories.count > 1 {
@@ -46,17 +46,22 @@ struct PayloadListView: View {
                                 ForEach(payloads) { payload in
                                     NavigationLink(value: payload) {
                                         PayloadRowView(payload: payload)
+                                            .accessibilityLabel("\(payload.name.isEmpty ? payload.payloadType : payload.name). Platforms: \(payload.platforms.joined(separator: ", "))")
                                     }
                                 }
                             }
                         }
                     }
                     .listStyle(.insetGrouped)
+                    .refreshable {
+                        await appState.refreshMDMCatalog()
+                    }
                 }
             }
             .navigationTitle("Payloads")
             .navigationSubtitle("\(filteredPayloads.count) of \(appState.mdmPayloads.count) payloads")
             .searchable(text: $searchText, prompt: "Search payloads…")
+            .navigationSplitViewColumnWidth(min: 320, ideal: 450, max: 600)
         } detail: {
             if let payload = selectedPayload {
                 PayloadDetailView(payload: payload)
@@ -113,27 +118,33 @@ struct PayloadRowView: View {
     let payload: MDMPayloadRecord
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(payload.name.isEmpty ? payload.payloadType : payload.name)
-                    .font(.body.weight(.medium))
-                    .lineLimit(1)
-                if payload.isDeprecated {
-                    Text("Deprecated")
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 5)
-                        .padding(.vertical, 2)
-                        .background(Color.orange, in: Capsule())
+        HStack(spacing: 12) {
+            PayloadIcon(payloadType: payload.payloadType, sources: payload.sources)
+                .frame(width: 32, height: 32)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text(payload.name.isEmpty ? payload.payloadType : payload.name)
+                        .font(.body.weight(.medium))
+                        .lineLimit(1)
+                    if payload.isDeprecated {
+                        Text("Deprecated")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 5)
+                            .padding(.vertical, 2)
+                            .background(Color.orange, in: Capsule())
+                    }
                 }
-            }
-            Text(payload.payloadType)
-                .font(.system(.caption, design: .monospaced))
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-            if !payload.platforms.isEmpty {
-                HStack(spacing: 4) {
-                    ForEach(payload.platforms.prefix(4), id: \.self) { PlatformBadge(platform: $0) }
+                Text(payload.payloadType)
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                if !payload.platforms.isEmpty {
+                    HStack(spacing: 4) {
+                        ForEach(payload.platforms.prefix(4), id: \.self) { PlatformBadge(platform: $0) }
+                    }
                 }
             }
         }

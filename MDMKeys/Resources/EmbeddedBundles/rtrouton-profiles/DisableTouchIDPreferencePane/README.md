@@ -1,1 +1,0 @@
-This macOS management profile disables access to the TouchID preference pane for all accounts on a TouchID-equipped Mac.

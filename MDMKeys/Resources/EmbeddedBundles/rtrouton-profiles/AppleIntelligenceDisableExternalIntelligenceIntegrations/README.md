@@ -1,1 +1,0 @@
-This management profile disables Apple Intelligence's feature which allows Siri to connect to third party cloud-based intelligence services on macOS Sequoia 15.2 and later.

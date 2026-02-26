@@ -1,1 +1,0 @@
-This management profile disables Apple Intelligence's transcription summary for Notes feature on macOS Sequoia 15.3 and later.

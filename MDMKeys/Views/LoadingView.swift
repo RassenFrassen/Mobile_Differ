@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LoadingView: View {
+    @EnvironmentObject var appState: AppState
     @State private var progress: Double = 0.0
     
     // Messages green color
@@ -39,9 +40,16 @@ struct LoadingView: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(.white)
                     
-                    Text("Loading Payloads and Keys catalog...")
-                        .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.7))
+                    if let status = appState.catalogRefreshStatus {
+                        Text(status)
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.7))
+                            .transition(.opacity)
+                    } else {
+                        Text("Loading Payloads and Keys catalog...")
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
                 }
                 
                 // Messages green progress bar
