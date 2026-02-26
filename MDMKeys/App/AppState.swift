@@ -115,14 +115,22 @@ class AppState: ObservableObject {
             mdmNewKeys = changes.added
             mdmLastUpdated = Date()
 
-            // Detect suspicious diff (likely data corruption or format change)
-            let isSuspicious = previous != nil && 
-                               changes.added.count > 1000 && 
-                               changes.removed.count > 1000 &&
-                               abs(changes.added.count - changes.removed.count) < 500
-            
+            // Detect suspicious diff (likely data corruption, format change, or initial seed update)
+            // Case 1: Both added and removed > 1000 with similar counts (data corruption)
+            let massiveBidirectionalChange = changes.added.count > 1000 &&
+                                            changes.removed.count > 1000 &&
+                                            abs(changes.added.count - changes.removed.count) < 500
+
+            // Case 2: Massive one-sided addition (> 5000 added, seed regeneration or new source)
+            let massiveAddition = changes.added.count > 5000
+
+            // Case 3: Massive one-sided removal (> 5000 removed, source disabled)
+            let massiveRemoval = changes.removed.count > 5000
+
+            let isSuspicious = previous != nil && (massiveBidirectionalChange || massiveAddition || massiveRemoval)
+
             if isSuspicious {
-                logWarning("refreshMDMCatalog: Suspicious diff detected - \(changes.added.count) added, \(changes.removed.count) removed. Likely data corruption. Skipping notification.")
+                logWarning("refreshMDMCatalog: Suspicious diff detected - \(changes.added.count) added, \(changes.removed.count) removed. Likely seed regeneration or source change. Skipping notification.")
             }
             
             // Record changes in history
