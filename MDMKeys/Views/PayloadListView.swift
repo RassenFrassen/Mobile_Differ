@@ -219,11 +219,11 @@ struct PayloadDetailView: View {
                         NavigationLink {
                             KeyDetailView(key: key)
                         } label: {
-                            KeyRowView(key: key)
+                            KeyRowView(key: key, isFavorite: false)
                         }
                     }
                 }
-                
+
                 // Profile Examples
                 Section {
                     Button {

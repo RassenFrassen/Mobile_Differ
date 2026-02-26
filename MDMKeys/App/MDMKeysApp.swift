@@ -4,6 +4,7 @@ import BackgroundTasks
 @main
 struct MDMKeysApp: App {
     @StateObject private var appState = AppState()
+    @StateObject private var deepLinkService = DeepLinkService.shared
 
     init() {
         // Migrate notification log from UserDefaults to file storage if needed
@@ -19,6 +20,10 @@ struct MDMKeysApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(appState)
+                .environmentObject(deepLinkService)
+                .onOpenURL { url in
+                    _ = deepLinkService.handle(url)
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                     Task { @MainActor in
                         await appState.markNotificationsRead()
