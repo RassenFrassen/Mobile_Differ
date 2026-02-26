@@ -10,6 +10,7 @@ struct KeyBrowserView: View {
     @State private var showDeprecated = true
     @State private var showFilters = false
     @State private var selectedKey: MDMKeyRecord? = nil
+    @State private var showOnlyFavorites = false
 
     private var allPlatforms: [String] {
         Array(Set(appState.mdmKeys.flatMap(\.platforms))).sorted()
@@ -21,6 +22,7 @@ struct KeyBrowserView: View {
 
     private var filteredKeys: [MDMKeyRecord] {
         appState.mdmKeys.filter { key in
+            if showOnlyFavorites && !appState.isFavorite(key.id) { return false }
             if !showDeprecated && key.isDeprecated { return false }
             if let platform = selectedPlatform, !key.platforms.contains(platform) { return false }
             if let source = selectedSource, !key.sources.contains(source) { return false }
@@ -40,6 +42,7 @@ struct KeyBrowserView: View {
         if selectedSource != nil { count += 1 }
         if selectedPayloadType != nil { count += 1 }
         if !showDeprecated { count += 1 }
+        if showOnlyFavorites { count += 1 }
         return count
     }
 
@@ -57,6 +60,9 @@ struct KeyBrowserView: View {
             .navigationSubtitle("\(filteredKeys.count) of \(appState.mdmKeys.count) keys")
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search keys, payloads, descriptions…")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    favoritesToggleButton
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     filterButton
                 }
@@ -71,7 +77,8 @@ struct KeyBrowserView: View {
                     selectedPlatform: $selectedPlatform,
                     selectedSource: $selectedSource,
                     selectedPayloadType: $selectedPayloadType,
-                    showDeprecated: $showDeprecated
+                    showDeprecated: $showDeprecated,
+                    showOnlyFavorites: $showOnlyFavorites
                 )
             }
             .navigationSplitViewColumnWidth(min: 320, ideal: 450, max: 600)
@@ -91,8 +98,20 @@ struct KeyBrowserView: View {
     private var keyList: some View {
         List(filteredKeys, selection: $selectedKey) { key in
             NavigationLink(value: key) {
-                KeyRowView(key: key)
+                KeyRowView(key: key, isFavorite: appState.isFavorite(key.id))
                     .accessibilityLabel("\(key.key). \(key.payloadType). Platforms: \(key.platforms.joined(separator: ", "))")
+            }
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                Button {
+                    Task {
+                        await appState.toggleFavorite(key.id)
+                        HapticService.lightImpact()
+                    }
+                } label: {
+                    Label(appState.isFavorite(key.id) ? "Unfavorite" : "Favorite",
+                          systemImage: appState.isFavorite(key.id) ? "star.slash" : "star.fill")
+                }
+                .tint(appState.isFavorite(key.id) ? .gray : .yellow)
             }
         }
         .listStyle(.insetGrouped)
@@ -127,6 +146,17 @@ struct KeyBrowserView: View {
         }
     }
 
+    private var favoritesToggleButton: some View {
+        Button {
+            HapticService.lightImpact()
+            showOnlyFavorites.toggle()
+        } label: {
+            Image(systemName: showOnlyFavorites ? "star.fill" : "star")
+                .foregroundStyle(showOnlyFavorites ? .yellow : .primary)
+        }
+        .accessibilityLabel(showOnlyFavorites ? "Show all keys" : "Show favorites only")
+    }
+
     private var filterButton: some View {
         Button {
             HapticService.lightImpact()
@@ -153,7 +183,8 @@ struct KeyBrowserView: View {
 
 struct KeyRowView: View {
     let key: MDMKeyRecord
-    
+    let isFavorite: Bool
+
     private var displayName: String {
         if key.key == "ANY" {
             return "Custom Keys (any key-value pairs)"
@@ -165,9 +196,14 @@ struct KeyRowView: View {
         HStack(spacing: 12) {
             PayloadIcon(payloadType: key.payloadType, sources: key.sources)
                 .frame(width: 32, height: 32)
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
+                    if isFavorite {
+                        Image(systemName: "star.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.yellow)
+                    }
                     Text(displayName)
                         .font(.body.weight(.medium))
                         .lineLimit(1)
@@ -258,6 +294,7 @@ struct FilterSheetView: View {
     @Binding var selectedSource: MDMSource?
     @Binding var selectedPayloadType: String?
     @Binding var showDeprecated: Bool
+    @Binding var showOnlyFavorites: Bool
 
     @Environment(\.dismiss) private var dismiss
     @State private var payloadSearch = ""
@@ -271,6 +308,10 @@ struct FilterSheetView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section("Favorites") {
+                    Toggle("Show only favorites", isOn: $showOnlyFavorites)
+                }
+
                 Section("Deprecated Keys") {
                     Toggle("Show deprecated keys", isOn: $showDeprecated)
                 }
@@ -350,6 +391,7 @@ struct FilterSheetView: View {
                         selectedSource = nil
                         selectedPayloadType = nil
                         showDeprecated = true
+                        showOnlyFavorites = false
                     }
                     .foregroundStyle(.red)
                 }
