@@ -611,6 +611,7 @@ struct CompatibilityView: View {
             .navigationDestination(for: MDMKeyRecord.self) { key in
                 KeyDetailView(key: key)
             }
+            .navigationSplitViewColumnWidth(min: 320, ideal: 450, max: 600)
         } detail: {
             if let key = selectedKey {
                 KeyDetailView(key: key)
