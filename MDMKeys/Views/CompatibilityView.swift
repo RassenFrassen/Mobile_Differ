@@ -327,6 +327,25 @@ struct CompatibilityView: View {
         if lower.contains("vision") { return "visionOS" }
         return platform
     }
+
+    /// Check if a key's platforms match the selected platform
+    /// iOS and iPadOS are treated as interchangeable since Apple treats them similarly
+    private func keyMatchesPlatform(_ key: MDMKeyRecord, _ selectedPlatform: String) -> Bool {
+        // Direct match
+        if key.platforms.contains(selectedPlatform) {
+            return true
+        }
+
+        // iOS/iPadOS cross-compatibility: if selected is iPadOS, accept iOS keys (and vice versa)
+        if selectedPlatform == "iPadOS" && key.platforms.contains("iOS") {
+            return true
+        }
+        if selectedPlatform == "iOS" && key.platforms.contains("iPadOS") {
+            return true
+        }
+
+        return false
+    }
     
     private func compareVersions(_ v1: String, _ v2: String) -> Bool {
         // Compare version strings numerically with beta support
@@ -399,8 +418,8 @@ struct CompatibilityView: View {
     
     private var compatibleKeys: [MDMKeyRecord] {
         appState.mdmKeys.filter { key in
-            // Platform filter
-            guard key.platforms.contains(selectedPlatform) else { return false }
+            // Platform filter (iOS and iPadOS are treated as compatible)
+            guard keyMatchesPlatform(key, selectedPlatform) else { return false }
             
             // Version filter - key must be introduced before or at selected version
             if let introduced = key.introduced, !introduced.isEmpty && introduced != "n/a" {
@@ -430,8 +449,8 @@ struct CompatibilityView: View {
     
     private var incompatibleKeys: [MDMKeyRecord] {
         appState.mdmKeys.filter { key in
-            // Platform filter
-            guard key.platforms.contains(selectedPlatform) else { return false }
+            // Platform filter (iOS and iPadOS are treated as compatible)
+            guard keyMatchesPlatform(key, selectedPlatform) else { return false }
             
             // Check if it's NOT compatible
             if let introduced = key.introduced, !introduced.isEmpty && introduced != "n/a" {
