@@ -1,0 +1,83 @@
+{
+  "payload": {
+    "id": "com.microsoft.autoupdate2",
+    "payloadType": "com.microsoft.autoupdate2",
+    "name": "Microsoft AutoUpdate (MAU)",
+    "category": "Other",
+    "platforms": [
+      "macOS"
+    ],
+    "summary": "Microsoft AutoUpdate settings for managing Office app updates",
+    "discussion": "",
+    "isDeprecated": false,
+    "sources": [
+      "Microsoft"
+    ],
+    "sourceDocumentation": [
+      "https://learn.jamf.com/en-US/bundle/technical-paper-microsoft-office-current/page/Microsoft_AutoUpdate_Default_Preference_Keys.html",
+      "https://learn.microsoft.com/en-us/microsoft-365-apps/privacy/mac-privacy-preferences"
+    ]
+  },
+  "keys": [
+    {
+      "id": "com.microsoft.autoupdate2.ChannelName",
+      "key": "ChannelName",
+      "keyPath": "ChannelName",
+      "payloadType": "com.microsoft.autoupdate2",
+      "payloadName": "Microsoft AutoUpdate (MAU)",
+      "keyDescription": "Update channel (Current, Preview, Beta) for Microsoft apps",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.autoupdate2.HowToCheck",
+      "key": "HowToCheck",
+      "keyPath": "HowToCheck",
+      "payloadType": "com.microsoft.autoupdate2",
+      "payloadName": "Microsoft AutoUpdate (MAU)",
+      "keyDescription": "Update check behavior (Manual, AutomaticDownload, AutomaticDownloadAndInstall)",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.autoupdate2.UpdateDeadline.DaysBeforeForcedQuit",
+      "key": "UpdateDeadline.DaysBeforeForcedQuit",
+      "keyPath": "UpdateDeadline.DaysBeforeForcedQuit",
+      "payloadType": "com.microsoft.autoupdate2",
+      "payloadName": "Microsoft AutoUpdate (MAU)",
+      "keyDescription": "Number of days before forcing app quit to install updates",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.autoupdate2.AcknowledgedDataCollectionPolicy",
+      "key": "AcknowledgedDataCollectionPolicy",
+      "keyPath": "AcknowledgedDataCollectionPolicy",
+      "payloadType": "com.microsoft.autoupdate2",
+      "payloadName": "Microsoft AutoUpdate (MAU)",
+      "keyDescription": "User acknowledgment of data collection policy",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    }
+  ]
+}

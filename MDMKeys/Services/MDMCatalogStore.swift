@@ -175,6 +175,23 @@ actor MDMCatalogStore {
             let snapshot = try decoder.decode(MDMSnapshot.self, from: data)
             return cleanSnapshot(snapshot)
         } catch {
+            logError("Failed to decode snapshot from \(url.path): \(error)")
+            if let decodingError = error as? DecodingError {
+                switch decodingError {
+                case .keyNotFound(let key, let context):
+                    logError("Missing key '\(key.stringValue)' at path: \(context.codingPath.map { $0.stringValue }.joined(separator: "."))")
+                case .typeMismatch(let type, let context):
+                    logError("Type mismatch for type '\(type)' at path: \(context.codingPath.map { $0.stringValue }.joined(separator: "."))")
+                    logError("Context: \(context.debugDescription)")
+                case .valueNotFound(let type, let context):
+                    logError("Value not found for type '\(type)' at path: \(context.codingPath.map { $0.stringValue }.joined(separator: "."))")
+                case .dataCorrupted(let context):
+                    logError("Data corrupted at path: \(context.codingPath.map { $0.stringValue }.joined(separator: "."))")
+                    logError("Context: \(context.debugDescription)")
+                @unknown default:
+                    logError("Unknown decoding error: \(decodingError)")
+                }
+            }
             return nil
         }
     }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.Edge
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  Keys: RestoreOnStartup, RestoreOnStartupURLs, HomepageLocation, ExtensionInstallForcelist.
+-->
+<dict>
+  <!-- Open on startup behaviour (see RestoreOnStartup policy) -->
+  <key>RestoreOnStartup</key>
+  <integer>4</integer> <!-- 4 = Open list of URLs -->
+
+  <!-- URLs to open on startup (requires RestoreOnStartup=4) -->
+  <key>RestoreOnStartupURLs</key>
+  <array>
+    <string>https://intranet.example.com</string>
+  </array>
+
+  <!-- Home button URL -->
+  <key>HomepageLocation</key>
+  <string>https://intranet.example.com</string>
+
+  <!-- Force-install extensions (value format: extension_id;update_url) -->
+  <key>ExtensionInstallForcelist</key>
+  <array>
+    <string>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;https://clients2.google.com/service/update2/crx</string>
+  </array>
+</dict>
+</plist>

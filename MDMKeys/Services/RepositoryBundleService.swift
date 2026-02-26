@@ -173,6 +173,8 @@ actor RepositoryBundleService {
             return "rtrouton-profiles"
         case .appleDeveloperDocumentation:
             return nil
+        case .microsoft:
+            return nil
         }
     }
 
@@ -196,6 +198,7 @@ actor RepositoryBundleService {
         case .profileCreator: dirName = "ProfileManifests-ProfileManifests"
         case .rtroutonProfiles: dirName = "rtrouton-profiles"
         case .appleDeveloperDocumentation: return nil
+        case .microsoft: return nil
         }
         let path = bundlesDir.appendingPathComponent(dirName, isDirectory: true)
         return fileManager.fileExists(atPath: path.path) ? path : nil

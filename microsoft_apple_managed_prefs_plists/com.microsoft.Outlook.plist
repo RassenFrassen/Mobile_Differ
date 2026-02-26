@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.Outlook
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  Outlook for Mac preferences.
+-->
+<dict>
+  <!-- Mailbox/account restrictions -->
+  <key>DefaultEmailAddressOrDomain</key>
+  <string>contoso.com</string>
+
+  <key>AllowedEmailDomains</key>
+  <array>
+    <string>contoso.com</string>
+  </array>
+
+  <key>DisallowedEmailDomains</key>
+  <array>
+    <string>gmail.com</string>
+    <string>yahoo.com</string>
+  </array>
+
+  <!-- Import / export controls (some require configuration profile to enforce) -->
+  <key>DisableImport</key>
+  <true/>
+  <key>DisableExport</key>
+  <true/>
+
+  <!-- Meetings -->
+  <key>DisableTeamsMeeting</key>
+  <true/>
+  <key>DisableSkypeMeeting</key>
+  <true/>
+
+  <!-- Security -->
+  <key>DisableBasic</key>
+  <true/>
+  <key>TrustO365AutodiscoverRedirect</key>
+  <true/>
+
+  <!-- Weather -->
+  <key>DefaultWeatherLocation</key>
+  <string>London, United Kingdom</string>
+  <key>Weather_update_automatically</key>
+  <true/>
+</dict>
+</plist>

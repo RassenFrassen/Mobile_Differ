@@ -1,0 +1,127 @@
+{
+  "payload": {
+    "id": "com.microsoft.Outlook",
+    "payloadType": "com.microsoft.Outlook",
+    "name": "Microsoft Outlook",
+    "category": "Other",
+    "platforms": [
+      "macOS"
+    ],
+    "summary": "Microsoft Outlook for Mac email client settings",
+    "discussion": "",
+    "isDeprecated": false,
+    "sources": [
+      "Microsoft"
+    ],
+    "sourceDocumentation": [
+      "https://learn.microsoft.com/en-us/microsoft-365-apps/mac/deploy-preferences-for-office-for-mac"
+    ]
+  },
+  "keys": [
+    {
+      "id": "com.microsoft.Outlook.DefaultEmailAddressOrDomain",
+      "key": "DefaultEmailAddressOrDomain",
+      "keyPath": "DefaultEmailAddressOrDomain",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Pre-fill default email address or domain for account setup",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.AllowedEmailDomains",
+      "key": "AllowedEmailDomains",
+      "keyPath": "AllowedEmailDomains",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "List of allowed email domains for adding accounts",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisallowedEmailDomains",
+      "key": "DisallowedEmailDomains",
+      "keyPath": "DisallowedEmailDomains",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "List of disallowed email domains for adding accounts",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisableImport",
+      "key": "DisableImport",
+      "keyPath": "DisableImport",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Prevent users from importing data into Outlook",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisableExport",
+      "key": "DisableExport",
+      "keyPath": "DisableExport",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Prevent users from exporting data from Outlook",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisableTeamsMeeting",
+      "key": "DisableTeamsMeeting",
+      "keyPath": "DisableTeamsMeeting",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Disable Teams meeting integration in Outlook",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisableBasic",
+      "key": "DisableBasic",
+      "keyPath": "DisableBasic",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Disable Basic authentication for Exchange accounts",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    }
+  ]
+}

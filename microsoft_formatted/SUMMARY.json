@@ -1,0 +1,51 @@
+{
+  "total_apps": 6,
+  "total_keys": 93,
+  "existing_apps": [
+    "com.microsoft.wdav",
+    "com.microsoft.OneDrive",
+    "com.microsoft.Outlook",
+    "com.microsoft.autoupdate2",
+    "com.microsoft.office",
+    "com.microsoft.Edge"
+  ],
+  "new_apps": [],
+  "apps": {
+    "com.microsoft.wdav": {
+      "name": "Microsoft Defender for Endpoint",
+      "payload_type": "com.microsoft.wdav",
+      "num_keys": 59,
+      "exists_in_seed": true
+    },
+    "com.microsoft.OneDrive": {
+      "name": "Microsoft OneDrive",
+      "payload_type": "com.microsoft.OneDrive",
+      "num_keys": 13,
+      "exists_in_seed": true
+    },
+    "com.microsoft.Outlook": {
+      "name": "Microsoft Outlook",
+      "payload_type": "com.microsoft.Outlook",
+      "num_keys": 7,
+      "exists_in_seed": true
+    },
+    "com.microsoft.autoupdate2": {
+      "name": "Microsoft AutoUpdate",
+      "payload_type": "com.microsoft.autoupdate2",
+      "num_keys": 4,
+      "exists_in_seed": true
+    },
+    "com.microsoft.office": {
+      "name": "Microsoft Office",
+      "payload_type": "com.microsoft.office",
+      "num_keys": 6,
+      "exists_in_seed": true
+    },
+    "com.microsoft.Edge": {
+      "name": "Microsoft Edge",
+      "payload_type": "com.microsoft.Edge",
+      "num_keys": 4,
+      "exists_in_seed": true
+    }
+  }
+}

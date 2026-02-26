@@ -1,0 +1,218 @@
+{
+  "payload": {
+    "id": "com.microsoft.OneDrive",
+    "payloadType": "com.microsoft.OneDrive",
+    "name": "Microsoft OneDrive",
+    "category": "Other",
+    "platforms": [
+      "macOS"
+    ],
+    "summary": "Microsoft OneDrive sync client settings for macOS including Known Folder Move",
+    "discussion": "",
+    "isDeprecated": false,
+    "sources": [
+      "Microsoft"
+    ],
+    "sourceDocumentation": [
+      "https://learn.microsoft.com/en-us/sharepoint/deploy-and-configure-on-macos",
+      "https://learn.microsoft.com/en-us/sharepoint/redirect-known-folders-macos"
+    ]
+  },
+  "keys": [
+    {
+      "id": "com.microsoft.OneDrive.DisablePersonalSync",
+      "key": "DisablePersonalSync",
+      "keyPath": "DisablePersonalSync",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Prevents users from adding or syncing personal OneDrive accounts",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.AllowTenantList",
+      "key": "AllowTenantList",
+      "keyPath": "AllowTenantList",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "List of allowed tenant IDs (GUIDs) for OneDrive sync",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.BlockTenantList",
+      "key": "BlockTenantList",
+      "keyPath": "BlockTenantList",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "List of blocked tenant IDs (GUIDs) for OneDrive sync",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.BlockExternalSync",
+      "key": "BlockExternalSync",
+      "keyPath": "BlockExternalSync",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Prevent sync of external SharePoint libraries from other organizations",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.DefaultFolder",
+      "key": "DefaultFolder",
+      "keyPath": "DefaultFolder",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Default OneDrive folder location and tenant configuration",
+      "valueType": "dictionary",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.DisableAutoConfig",
+      "key": "DisableAutoConfig",
+      "keyPath": "DisableAutoConfig",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Disable automatic sign-in using existing Azure AD credentials (set to 1 to disable)",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMOptInWithWizard",
+      "key": "KFMOptInWithWizard",
+      "keyPath": "KFMOptInWithWizard",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Tenant ID to enable Known Folder Move with user wizard",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMSilentOptIn",
+      "key": "KFMSilentOptIn",
+      "keyPath": "KFMSilentOptIn",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Tenant ID to silently enable Known Folder Move without user interaction",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMSilentOptInWithNotification",
+      "key": "KFMSilentOptInWithNotification",
+      "keyPath": "KFMSilentOptInWithNotification",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Show notification when silently enabling Known Folder Move",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMSilentOptInDesktop",
+      "key": "KFMSilentOptInDesktop",
+      "keyPath": "KFMSilentOptInDesktop",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Include Desktop folder in Known Folder Move",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMSilentOptInDocuments",
+      "key": "KFMSilentOptInDocuments",
+      "keyPath": "KFMSilentOptInDocuments",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Include Documents folder in Known Folder Move",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.KFMBlockOptOut",
+      "key": "KFMBlockOptOut",
+      "keyPath": "KFMBlockOptOut",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Prevent users from opting out of Known Folder Move",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.MinDiskSpaceLimitInMB",
+      "key": "MinDiskSpaceLimitInMB",
+      "keyPath": "MinDiskSpaceLimitInMB",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Minimum free disk space in MB before blocking downloads",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    }
+  ]
+}

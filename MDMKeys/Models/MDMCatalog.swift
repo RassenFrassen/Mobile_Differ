@@ -5,6 +5,7 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
     case appleDeveloperDocumentation = "Apple Developer Documentation"
     case profileCreator = "ProfileManifests"
     case rtroutonProfiles = "rtrouton/profiles"
+    case microsoft = "Microsoft"
 
     var id: String { rawValue }
 
@@ -18,6 +19,8 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "https://github.com/ProfileManifests/ProfileManifests"
         case .rtroutonProfiles:
             return "https://github.com/rtrouton/profiles"
+        case .microsoft:
+            return "https://learn.microsoft.com/en-us/mem/intune/"
         }
     }
 
@@ -27,6 +30,7 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
         case .appleDeveloperDocumentation: return "Apple"
         case .profileCreator: return "ProfileManifests"
         case .rtroutonProfiles: return "rtrouton"
+        case .microsoft: return "Microsoft"
         }
     }
 
@@ -40,6 +44,8 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "Community ProfileManifests payload manifest source."
         case .rtroutonProfiles:
             return "Community profile payload samples."
+        case .microsoft:
+            return "Official Microsoft documentation for enterprise app management."
         }
     }
 
@@ -51,6 +57,8 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
             return "doc.text.magnifyingglass"
         case .rtroutonProfiles:
             return "person.fill"
+        case .microsoft:
+            return "building.2.fill"
         }
     }
 
@@ -69,6 +77,7 @@ enum MDMSource: String, CaseIterable, Identifiable, Codable {
         case "profileCreator": self = .profileCreator
         case "ProfileCreator": self = .profileCreator
         case "rtroutonProfiles": self = .rtroutonProfiles
+        case "microsoft": self = .microsoft
         default:
             throw DecodingError.dataCorruptedError(
                 in: container,

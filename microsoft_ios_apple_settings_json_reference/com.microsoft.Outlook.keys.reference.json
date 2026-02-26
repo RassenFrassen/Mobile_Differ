@@ -1,0 +1,37 @@
+{
+  "domain": "com.microsoft.Outlook",
+  "platform": "macOS",
+  "source_docs": [
+    "https://learn.microsoft.com/en-us/microsoft-365-apps/mac/deploy-preferences-for-office-for-mac"
+  ],
+  "keys": [
+    {
+      "key": "DefaultEmailAddressOrDomain",
+      "type": "string"
+    },
+    {
+      "key": "AllowedEmailDomains",
+      "type": "array[string]"
+    },
+    {
+      "key": "DisallowedEmailDomains",
+      "type": "array[string]"
+    },
+    {
+      "key": "DisableImport",
+      "type": "bool"
+    },
+    {
+      "key": "DisableExport",
+      "type": "bool"
+    },
+    {
+      "key": "DisableTeamsMeeting",
+      "type": "bool"
+    },
+    {
+      "key": "DisableBasic",
+      "type": "bool"
+    }
+  ]
+}

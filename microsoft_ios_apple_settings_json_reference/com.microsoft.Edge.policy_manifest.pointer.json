@@ -1,0 +1,10 @@
+{
+  "domain": "com.microsoft.Edge",
+  "platform": "macOS",
+  "where_the_full_json_lives": "Download macOS Universal Policy from the Edge for Business download page and extract policy_manifest.json.",
+  "source_docs": [
+    "https://learn.microsoft.com/en-us/deployedge/configure-microsoft-edge-on-mac",
+    "https://learn.microsoft.com/en-us/deployedge/configure-microsoft-edge-on-mac-jamf",
+    "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies"
+  ]
+}

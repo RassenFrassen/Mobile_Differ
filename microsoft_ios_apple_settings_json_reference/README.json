@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-02-26T16:01:31.049759Z",
+  "what_this_is": "Reference JSON files for configuring Microsoft apps on Apple platforms via MDM.",
+  "important": [
+    "The only complete, authoritative machine-readable schema Microsoft publishes as JSON today (commonly used with Jamf Custom Schema) is for Microsoft Defender for Endpoint: com.microsoft.wdav.schema.json.",
+    "Microsoft Edge publishes a full JSON policy manifest (policy_manifest.json), but it is distributed via the Edge for Business 'Universal Policy' download (not a stable static Learn URL). This pack includes a pointer file for Edge.",
+    "Office/Outlook/OneDrive/MAU publish keys primarily as documentation; this pack includes a practical starter key list + source pointers (not guaranteed exhaustive)."
+  ],
+  "platform_notes": {
+    "macOS": "Uses preference domains (com.*) + managed preferences. These JSONs are macOS-focused.",
+    "iOS_iPadOS": "Do not support arbitrary preference domains. App management is via Managed App Configuration (AppConfig) and/or MAM; keys differ and are not covered in these macOS preference-domain JSONs."
+  }
+}

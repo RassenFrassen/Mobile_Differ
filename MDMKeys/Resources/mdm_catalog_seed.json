@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-02-26T12:18:11.151714+00:00",
+  "generatedAt": "2026-02-26T16:30:37.976036+00:00",
   "sources": [
     {
       "source": "ProfileCreator",
@@ -28,6 +28,14 @@
       "licenseURL": "https://github.com/rtrouton/profiles/blob/main/LICENSE",
       "revision": "2026-02-26T12:18:11.149813+00:00",
       "fetchedAt": "2026-02-26T12:18:11.149819+00:00"
+    },
+    {
+      "source": "Microsoft",
+      "itemCount": 64,
+      "repoURL": "https://learn.microsoft.com/en-us/mem/intune/",
+      "licenseName": "Microsoft Documentation",
+      "revision": "2026-02-26T16:30:37.975680+00:00",
+      "fetchedAt": "2026-02-26T16:30:37.976032+00:00"
     }
   ],
   "payloads": [
@@ -2361,11 +2369,15 @@
       "platforms": [
         "macOS"
       ],
-      "summary": "Microsoft Outlook settings",
+      "summary": "Microsoft Outlook for Mac email client settings",
       "discussion": "",
       "isDeprecated": false,
       "sources": [
-        "ProfileCreator"
+        "ProfileCreator",
+        "Microsoft"
+      ],
+      "sourceDocumentation": [
+        "https://learn.microsoft.com/en-us/microsoft-365-apps/mac/deploy-preferences-for-office-for-mac"
       ]
     },
     {
@@ -2856,11 +2868,12 @@
       "platforms": [
         "macOS"
       ],
-      "summary": "Microsoft Defender for Endpoint settings",
+      "summary": "Microsoft Defender for Endpoint (MDE) antivirus, EDR, and security settings",
       "discussion": "",
       "isDeprecated": false,
       "sources": [
-        "ProfileCreator"
+        "ProfileCreator",
+        "Microsoft"
       ]
     },
     {
@@ -2916,11 +2929,16 @@
       "platforms": [
         "macOS"
       ],
-      "summary": "Microsoft OneDrive settings",
+      "summary": "Microsoft OneDrive sync client settings for macOS including Known Folder Move",
       "discussion": "",
       "isDeprecated": false,
       "sources": [
-        "ProfileCreator"
+        "ProfileCreator",
+        "Microsoft"
+      ],
+      "sourceDocumentation": [
+        "https://learn.microsoft.com/en-us/sharepoint/deploy-and-configure-on-macos",
+        "https://learn.microsoft.com/en-us/sharepoint/redirect-known-folders-macos"
       ]
     },
     {
@@ -3247,11 +3265,16 @@
       "platforms": [
         "macOS"
       ],
-      "summary": "Microsoft Office settings",
+      "summary": "Microsoft Office suite-wide settings for Mac",
       "discussion": "",
       "isDeprecated": false,
       "sources": [
-        "ProfileCreator"
+        "ProfileCreator",
+        "Microsoft"
+      ],
+      "sourceDocumentation": [
+        "https://learn.microsoft.com/en-us/microsoft-365-apps/mac/deploy-preferences-for-office-for-mac",
+        "https://learn.microsoft.com/en-us/microsoft-365-apps/privacy/mac-privacy-preferences"
       ]
     },
     {
@@ -71590,156 +71613,6 @@
       ]
     },
     {
-      "id": "com.microsoft.wdav.antivirusEngine",
-      "key": "antivirusEngine",
-      "keyPath": "antivirusEngine",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Manages the preferences of the antivirus component of Microsoft Defender for Endpoint.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.cloudService",
-      "key": "cloudService",
-      "keyPath": "cloudService",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Configure the cloud-driven protection features of Microsoft Defender for Endpoint.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.userInterface",
-      "key": "userInterface",
-      "keyPath": "userInterface",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Manage the preferences for the user interface.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.edr",
-      "key": "edr",
-      "keyPath": "edr",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Manage the preferences of the endpoint detection and response (EDR) component.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.tamperProtection",
-      "key": "tamperProtection",
-      "keyPath": "tamperProtection",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Tamper protection helps prevent unauthorized removal of Microsoft Defender for Endpoint.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.deviceControl",
-      "key": "deviceControl",
-      "keyPath": "deviceControl",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "Device control can be used to customize the URL target for notifications raised by device control, and allow or block removable devices.",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.features",
-      "key": "features",
-      "keyPath": "features",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.networkProtection",
-      "key": "networkProtection",
-      "keyPath": "networkProtection",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.dlp",
-      "key": "dlp",
-      "keyPath": "dlp",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
-      "id": "com.microsoft.wdav.scheduledScan",
-      "key": "scheduledScan",
-      "keyPath": "scheduledScan",
-      "payloadType": "com.microsoft.wdav",
-      "payloadName": "Microsoft Defender for Endpoint",
-      "keyDescription": "",
-      "valueType": "dictionary",
-      "platforms": [
-        "macOS"
-      ],
-      "sources": [
-        "ProfileCreator"
-      ]
-    },
-    {
       "id": "net.glencode.Particulars.Widget.PayloadDescription",
       "key": "PayloadDescription",
       "keyPath": "PayloadDescription",
@@ -111352,6 +111225,1090 @@
       ],
       "sources": [
         "rtrouton/profiles"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.enforcementLevel",
+      "key": "antivirusEngine.enforcementLevel",
+      "keyPath": "antivirusEngine.enforcementLevel",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Antivirus engine enforcement mode",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "real_time",
+      "allowedValues": [
+        "passive",
+        "on_demand",
+        "real_time"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.enableRealTimeProtection",
+      "key": "antivirusEngine.enableRealTimeProtection",
+      "keyPath": "antivirusEngine.enableRealTimeProtection",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Locates and stops malware from installing or running on your device. You can turn off this setting for a short time before it turns back on automatically.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.exclusions",
+      "key": "antivirusEngine.exclusions",
+      "keyPath": "antivirusEngine.exclusions",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Entities that have been excluded from the scan. Exclusions can be specified by full paths, extensions, or file names.",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.passiveMode",
+      "key": "antivirusEngine.passiveMode",
+      "keyPath": "antivirusEngine.passiveMode",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Whether the antivirus engine runs in passive mode or not.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.allowedThreats",
+      "key": "antivirusEngine.allowedThreats",
+      "keyPath": "antivirusEngine.allowedThreats",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "List of threats (identified by their name) that are not blocked by the product and are instead allowed to run.",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.threatTypeSettings",
+      "key": "antivirusEngine.threatTypeSettings",
+      "keyPath": "antivirusEngine.threatTypeSettings",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "The threatTypeSettings preference in the antivirus engine is used to control how certain threat types are handled by the product.",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.exclusionsMergePolicy",
+      "key": "antivirusEngine.exclusionsMergePolicy",
+      "keyPath": "antivirusEngine.exclusionsMergePolicy",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify the merge policy for exclusions. This can be a combination of administrator-defined and user-defined exclusions (merge) or only administrator-defined exclusions (admin_only). This setting can be used to restrict local users from defining their own exclusions.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "merge",
+      "allowedValues": [
+        "merge",
+        "admin_only"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.disallowedThreatActions",
+      "key": "antivirusEngine.disallowedThreatActions",
+      "keyPath": "antivirusEngine.disallowedThreatActions",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Restricts the actions that the local user of a device can take when threats are detected. The actions included in this list are not displayed in the user interface. Use unique values.",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.threatTypeSettingsMergePolicy",
+      "key": "antivirusEngine.threatTypeSettingsMergePolicy",
+      "keyPath": "antivirusEngine.threatTypeSettingsMergePolicy",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify the merge policy for threat type settings. This can be a combination of administrator-defined and user-defined settings (merge) or only administrator-defined settings (admin_only). This setting can be used to restrict local users from defining their own settings for different threat types.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "merge",
+      "allowedValues": [
+        "merge",
+        "admin_only"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.scanResultsRetentionDays",
+      "key": "antivirusEngine.scanResultsRetentionDays",
+      "keyPath": "antivirusEngine.scanResultsRetentionDays",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify the number of days that results are retained in the scan history on the device. Old scan results are removed from the history. Old quarantined files that are also removed from the disk.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "90",
+      "minValue": 1,
+      "maxValue": 180
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.scanHistoryMaximumItems",
+      "key": "antivirusEngine.scanHistoryMaximumItems",
+      "keyPath": "antivirusEngine.scanHistoryMaximumItems",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify the maximum number of entries to keep in the scan history. Entries include all on-demand scans performed in the past and all antivirus detections.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "10000",
+      "minValue": 5000,
+      "maxValue": 15000
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.scanAfterDefinitionUpdate",
+      "key": "antivirusEngine.scanAfterDefinitionUpdate",
+      "keyPath": "antivirusEngine.scanAfterDefinitionUpdate",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specifies whether to start a process scan after new security intelligence updates are downloaded on the device. Enabling this setting will trigger an antivirus scan on the running processes of the device.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.maximumOnDemandScanThreads",
+      "key": "antivirusEngine.maximumOnDemandScanThreads",
+      "keyPath": "antivirusEngine.maximumOnDemandScanThreads",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specifies the degree of parallelism for on-demand scans. This corresponds to the number of threads used to perform the scan and impacts the CPU usage, as well as the duration of the on-demand scan.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "2",
+      "minValue": 1,
+      "maxValue": 64
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.scanArchives",
+      "key": "antivirusEngine.scanArchives",
+      "keyPath": "antivirusEngine.scanArchives",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "If true, Defender will unpack archives and scan files inside them. Otherwise archive content will be skipped, that will improve scanning performance.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.enableFileHashComputation",
+      "key": "antivirusEngine.enableFileHashComputation",
+      "keyPath": "antivirusEngine.enableFileHashComputation",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Enables or disables file hash computation feature. When this feature is enabled Defender will compute hashes for files it scans. This will help in improving the accuracy of Custom Indicator matches. However, enabling EnableFileHashComputation may impact device performance.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.offlineDefinitionUpdate",
+      "key": "antivirusEngine.offlineDefinitionUpdate",
+      "keyPath": "antivirusEngine.offlineDefinitionUpdate",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Enables or disables offline security intelligence updates feature. When this feature is enabled Defender will use a local mirror server to update the signatures.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "disabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.offlineDefinitionUpdateUrl",
+      "key": "antivirusEngine.offlineDefinitionUpdateUrl",
+      "keyPath": "antivirusEngine.offlineDefinitionUpdateUrl",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Sets the URL for a local offline security intelligence updates mirror server. When the feature is enabled Defender will use it to update the signatures.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.antivirusEngine.offlineDefinitionUpdateFallbackToCloud",
+      "key": "antivirusEngine.offlineDefinitionUpdateFallbackToCloud",
+      "keyPath": "antivirusEngine.offlineDefinitionUpdateFallbackToCloud",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Determine the Defender for Endpoint security intelligence update approach when offline mirror server fails to serve the update request. If set to true, the update is retried via the Microsoft cloud when offline security intelligence update failed.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.enabled",
+      "key": "cloudService.enabled",
+      "keyPath": "cloudService.enabled",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Provides increased, faster protection with access to the latest protection data in the cloud. Works best with automatic sample submission turned on",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.diagnosticLevel",
+      "key": "cloudService.diagnosticLevel",
+      "keyPath": "cloudService.diagnosticLevel",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "We encourage you to share your diagnostic and usage data with us to help improve Microsoft products and services.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "optional",
+      "allowedValues": [
+        "optional",
+        "required"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.automaticSampleSubmissionConsent",
+      "key": "cloudService.automaticSampleSubmissionConsent",
+      "keyPath": "cloudService.automaticSampleSubmissionConsent",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Sends sample files to Microsoft to help protect device users and your organization from potential threats",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "safe",
+      "allowedValues": [
+        "none",
+        "safe",
+        "all"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.automaticDefinitionUpdateEnabled",
+      "key": "cloudService.automaticDefinitionUpdateEnabled",
+      "keyPath": "cloudService.automaticDefinitionUpdateEnabled",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Determines whether security intelligence updates are installed automatically:",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "true"
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.cloudBlockLevel",
+      "key": "cloudService.cloudBlockLevel",
+      "keyPath": "cloudService.cloudBlockLevel",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Determines how aggressive Defender for Endpoint will be in blocking and scanning suspicious files.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "normal",
+      "allowedValues": [
+        "normal",
+        "moderate",
+        "high",
+        "high_plus",
+        "zero_tolerance"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.definitionUpdateDue",
+      "key": "cloudService.definitionUpdateDue",
+      "keyPath": "cloudService.definitionUpdateDue",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Determines the number of days after which the last installed security intelligence updates are considered outdated.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "7",
+      "minValue": 1,
+      "maxValue": 30
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.definitionUpdatesInterval",
+      "key": "cloudService.definitionUpdatesInterval",
+      "keyPath": "cloudService.definitionUpdatesInterval",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specifies the time interval (in seconds) after which security intelligence updates will be checked.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "28800",
+      "minValue": 60,
+      "maxValue": 86400
+    },
+    {
+      "id": "com.microsoft.wdav.cloudService.proxy",
+      "key": "cloudService.proxy",
+      "keyPath": "cloudService.proxy",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Configure proxy for all MDE cloud communication. If not set, the system-wide proxy is used.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.userInterface.hideStatusMenuIcon",
+      "key": "userInterface.hideStatusMenuIcon",
+      "keyPath": "userInterface.hideStatusMenuIcon",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Whether the status menu icon (shown in the top-right corner of the screen) is hidden or not.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.userInterface.userInitiatedFeedback",
+      "key": "userInterface.userInitiatedFeedback",
+      "keyPath": "userInterface.userInitiatedFeedback",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify whether users can submit feedback to Microsoft by going to Help > Send Feedback.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "enabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.userInterface.consumerExperience",
+      "key": "userInterface.consumerExperience",
+      "keyPath": "userInterface.consumerExperience",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specify whether users can sign into the consumer version of Microsoft Defender",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "enabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.edr.tags",
+      "key": "edr.tags",
+      "keyPath": "edr.tags",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Device tags",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.edr.groupIds",
+      "key": "edr.groupIds",
+      "keyPath": "edr.groupIds",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.features.dataLossPrevention",
+      "key": "features.dataLossPrevention",
+      "keyPath": "features.dataLossPrevention",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Whether data loss prevention enforcement is enabled on the machine.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "disabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.features.scheduledScan",
+      "key": "features.scheduledScan",
+      "keyPath": "features.scheduledScan",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Schedule scans with Microsoft Defender for Endpoint.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "enabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.features.behaviorMonitoring",
+      "key": "features.behaviorMonitoring",
+      "keyPath": "features.behaviorMonitoring",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Behavior Monitoring detections with Microsoft Defender for Endpoint.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "disabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.features.offlineDefinitionUpdateVerifySig",
+      "key": "features.offlineDefinitionUpdateVerifySig",
+      "keyPath": "features.offlineDefinitionUpdateVerifySig",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Offline security intelligence updates signature verification with Microsoft Defender for Endpoint. It is recommended to keep this setting enabled when offline updates are enabled.",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "enabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.tamperProtection.enforcementLevel",
+      "key": "tamperProtection.enforcementLevel",
+      "keyPath": "tamperProtection.enforcementLevel",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specifies if tamper protection is disabled, in audit mode, or enforced",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "block",
+      "allowedValues": [
+        "disabled",
+        "audit",
+        "block"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.tamperProtection.exclusions",
+      "key": "tamperProtection.exclusions",
+      "keyPath": "tamperProtection.exclusions",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Defines process that can interfere with Defender without considering it tampering",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.deviceControl.policy",
+      "key": "deviceControl.policy",
+      "keyPath": "deviceControl.policy",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "JSON string representing the device control policy",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.enforcementLevel",
+      "key": "networkProtection.enforcementLevel",
+      "keyPath": "networkProtection.enforcementLevel",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Specifies if network protection is disabled, in audit mode, or enforced",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "audit",
+      "allowedValues": [
+        "disabled",
+        "audit",
+        "block"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableDnsOverTcpParsing",
+      "key": "networkProtection.disableDnsOverTcpParsing",
+      "keyPath": "networkProtection.disableDnsOverTcpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of DNS over TCP",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableDnsParsing",
+      "key": "networkProtection.disableDnsParsing",
+      "keyPath": "networkProtection.disableDnsParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of DNS traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableFtpParsing",
+      "key": "networkProtection.disableFtpParsing",
+      "keyPath": "networkProtection.disableFtpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of FTP traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableHttpParsing",
+      "key": "networkProtection.disableHttpParsing",
+      "keyPath": "networkProtection.disableHttpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of HTTP traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableIcmpParsing",
+      "key": "networkProtection.disableIcmpParsing",
+      "keyPath": "networkProtection.disableIcmpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of ICMP traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableInboundConnectionFiltering",
+      "key": "networkProtection.disableInboundConnectionFiltering",
+      "keyPath": "networkProtection.disableInboundConnectionFiltering",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables filtering of inbound connections",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableRdpParsing",
+      "key": "networkProtection.disableRdpParsing",
+      "keyPath": "networkProtection.disableRdpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of RDP traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableSmtpParsing",
+      "key": "networkProtection.disableSmtpParsing",
+      "keyPath": "networkProtection.disableSmtpParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of SMTP traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableSshParsing",
+      "key": "networkProtection.disableSshParsing",
+      "keyPath": "networkProtection.disableSshParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of SSH traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.disableTlsParsing",
+      "key": "networkProtection.disableTlsParsing",
+      "keyPath": "networkProtection.disableTlsParsing",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Disables parsing of TLS traffic",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.networkProtection.enableSetWarnToBlock",
+      "key": "networkProtection.enableSetWarnToBlock",
+      "keyPath": "networkProtection.enableSetWarnToBlock",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Converts warn determinations into blocks",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.dlp.exclusions",
+      "key": "dlp.exclusions",
+      "keyPath": "dlp.exclusions",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Exclusions",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.dlp.features",
+      "key": "dlp.features",
+      "keyPath": "dlp.features",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Features",
+      "valueType": "array",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.checkForDefinitionsUpdate",
+      "key": "scheduledScan.checkForDefinitionsUpdate",
+      "keyPath": "scheduledScan.checkForDefinitionsUpdate",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Check for definitions update before initiating a scheduled scan",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.dailyConfiguration",
+      "key": "scheduledScan.dailyConfiguration",
+      "keyPath": "scheduledScan.dailyConfiguration",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Check for definitions update before initiating a scheduled scan",
+      "valueType": "dictionary",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.ignoreExclusions",
+      "key": "scheduledScan.ignoreExclusions",
+      "keyPath": "scheduledScan.ignoreExclusions",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Should exclusions be ignored during a scheduled scan",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.lowPriorityScheduledScan",
+      "key": "scheduledScan.lowPriorityScheduledScan",
+      "keyPath": "scheduledScan.lowPriorityScheduledScan",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Should scheduled scan be run with low priority. (Scan might take longer to complete).",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.randomizeScanStartTime",
+      "key": "scheduledScan.randomizeScanStartTime",
+      "keyPath": "scheduledScan.randomizeScanStartTime",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Randomize the start time of a daily and weekly scheduled scan to any interval from 0 to 23 hours.",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "0",
+      "minValue": 0,
+      "maxValue": 23
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.runScanWhenIdle",
+      "key": "scheduledScan.runScanWhenIdle",
+      "keyPath": "scheduledScan.runScanWhenIdle",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Run scheduled scan when the device is idle. Only applicable for weekly full scans.",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ],
+      "defaultValue": "false"
+    },
+    {
+      "id": "com.microsoft.wdav.scheduledScan.weeklyConfiguration",
+      "key": "scheduledScan.weeklyConfiguration",
+      "keyPath": "scheduledScan.weeklyConfiguration",
+      "payloadType": "com.microsoft.wdav",
+      "payloadName": "Microsoft Defender for Endpoint",
+      "keyDescription": "Should scheduled scan be run with low priority. (Scan might take longer to complete).",
+      "valueType": "dictionary",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.DefaultFolder",
+      "key": "DefaultFolder",
+      "keyPath": "DefaultFolder",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Default OneDrive folder location and tenant configuration",
+      "valueType": "dictionary",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.OneDrive.MinDiskSpaceLimitInMB",
+      "key": "MinDiskSpaceLimitInMB",
+      "keyPath": "MinDiskSpaceLimitInMB",
+      "payloadType": "com.microsoft.OneDrive",
+      "payloadName": "Microsoft OneDrive",
+      "keyDescription": "Minimum free disk space in MB before blocking downloads",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisallowedEmailDomains",
+      "key": "DisallowedEmailDomains",
+      "keyPath": "DisallowedEmailDomains",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "List of disallowed email domains for adding accounts",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Outlook.DisableBasic",
+      "key": "DisableBasic",
+      "keyPath": "DisableBasic",
+      "payloadType": "com.microsoft.Outlook",
+      "payloadName": "Microsoft Outlook",
+      "keyDescription": "Disable Basic authentication for Exchange accounts",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.DisableCloudFonts",
+      "key": "DisableCloudFonts",
+      "keyPath": "DisableCloudFonts",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Disable cloud-based fonts in Office applications",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
       ]
     }
   ]

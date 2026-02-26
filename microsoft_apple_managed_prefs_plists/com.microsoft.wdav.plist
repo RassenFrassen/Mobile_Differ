@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.wdav
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  Defender for Endpoint preferences (subset + placeholders for nested sections).
+-->
+<dict>
+  <!-- Defender AV enforcement level: real_time (default), on_demand, passive -->
+  <key>enforcementLevel</key>
+  <string>real_time</string>
+
+  <!-- Behavior monitoring: enabled (default) / disabled -->
+  <key>behaviorMonitoring</key>
+  <string>enabled</string>
+
+  <!-- Enable file hash computation -->
+  <key>enableFileHashComputation</key>
+  <false/>
+
+  <!-- Run a process scan after definitions update -->
+  <key>scanAfterDefinitionUpdate</key>
+  <true/>
+
+  <!-- On-demand scan options -->
+  <key>scanArchives</key>
+  <true/>
+  <key>maximumOnDemandScanThreads</key>
+  <integer>2</integer>
+
+  <!-- Nested preference dictionaries (examples / placeholders) -->
+  <key>antivirusEngine</key>
+  <dict>
+    <!-- Add nested antivirus engine preferences here (see Microsoft docs) -->
+  </dict>
+
+  <key>cloudService</key>
+  <dict>
+    <!-- Add cloud-delivered protection prefs here -->
+  </dict>
+
+  <key>edr</key>
+  <dict>
+    <!-- Add EDR preferences here -->
+  </dict>
+</dict>
+</plist>

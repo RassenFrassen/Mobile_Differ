@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.OneDrive
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  If using the Mac App Store build, the domain is com.microsoft.OneDrive-mac (same keys).
+-->
+<dict>
+  <!-- Block personal OneDrive accounts -->
+  <key>DisablePersonalSync</key>
+  <true/>
+
+  <!-- Example tenant allow/block lists -->
+  <key>AllowTenantList</key>
+  <array>
+    <string>00000000-0000-0000-0000-000000000000</string> <!-- Tenant GUID -->
+  </array>
+
+  <key>BlockTenantList</key>
+  <array>
+    <string>11111111-1111-1111-1111-111111111111</string>
+  </array>
+
+  <!-- Prevent sync of external (other-org) libraries -->
+  <key>BlockExternalSync</key>
+  <true/>
+
+  <!-- Default folder location (dictionary) -->
+  <key>DefaultFolder</key>
+  <dict>
+    <key>Path</key>
+    <string>~/OneDrive - Contoso</string>
+    <key>TenantId</key>
+    <string>00000000-0000-0000-0000-000000000000</string>
+  </dict>
+
+  <!-- Disable auto sign-in using existing Entra credential -->
+  <key>DisableAutoConfig</key>
+  <integer>1</integer>
+
+  <!-- Known Folder Move / Folder Backup examples -->
+  <key>KFMOptInWithWizard</key>
+  <string>00000000-0000-0000-0000-000000000000</string>
+
+  <key>KFMSilentOptIn</key>
+  <string>00000000-0000-0000-0000-000000000000</string>
+  <key>KFMSilentOptInWithNotification</key>
+  <true/>
+  <key>KFMSilentOptInDesktop</key>
+  <true/>
+  <key>KFMSilentOptInDocuments</key>
+  <true/>
+
+  <!-- Prevent users from opting out of Folder Backup -->
+  <key>KFMBlockOptOut</key>
+  <true/>
+
+  <!-- Minimum free disk space in MB before downloads are blocked -->
+  <key>MinDiskSpaceLimitInMB</key>
+  <integer>10240</integer>
+</dict>
+</plist>

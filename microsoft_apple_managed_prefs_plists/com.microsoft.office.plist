@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.office
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  Suite-wide Office preferences.
+-->
+<dict>
+  <!-- Automatically sign in and suppress first-run/welcome dialogs -->
+  <key>OfficeAutoSignIn</key>
+  <true/>
+
+  <!-- Pre-fill Microsoft 365 sign-in name -->
+  <key>OfficeActivationEmailAddress</key>
+  <string>user@contoso.com</string>
+
+  <!-- IRM cipher algorithm (0 Roundtrip, 1 CBC default, 2 ECB) -->
+  <key>OfficeDRMCompatibleEncryption</key>
+  <integer>1</integer>
+
+  <!-- Hide "What's New" on launch -->
+  <key>ShowWhatsNewOnLaunch</key>
+  <false/>
+
+  <!-- Skip template gallery on launch (Word/Excel/PowerPoint) -->
+  <key>ShowDocStageOnLaunch</key>
+  <false/>
+
+  <!-- Default to local file system in Open/Save dialogs -->
+  <key>DefaultsToLocalOpenSave</key>
+  <true/>
+
+  <!-- Disable cloud fonts -->
+  <key>DisableCloudFonts</key>
+  <true/>
+
+  <!-- Suite installer exclusions (set false to exclude) -->
+  <key>InstallTeams</key>
+  <true/>
+  <key>InstallOneDrive</key>
+  <true/>
+  <key>InstallDefender</key>
+  <true/>
+  <key>InstallAutoUpdate</key>
+  <true/>
+</dict>
+</plist>

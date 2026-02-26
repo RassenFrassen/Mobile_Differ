@@ -1,0 +1,113 @@
+{
+  "payload": {
+    "id": "com.microsoft.office",
+    "payloadType": "com.microsoft.office",
+    "name": "Microsoft Office",
+    "category": "Other",
+    "platforms": [
+      "macOS"
+    ],
+    "summary": "Microsoft Office suite-wide settings for Mac",
+    "discussion": "",
+    "isDeprecated": false,
+    "sources": [
+      "Microsoft"
+    ],
+    "sourceDocumentation": [
+      "https://learn.microsoft.com/en-us/microsoft-365-apps/mac/deploy-preferences-for-office-for-mac",
+      "https://learn.microsoft.com/en-us/microsoft-365-apps/privacy/mac-privacy-preferences"
+    ]
+  },
+  "keys": [
+    {
+      "id": "com.microsoft.office.OfficeAutoSignIn",
+      "key": "OfficeAutoSignIn",
+      "keyPath": "OfficeAutoSignIn",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Automatically sign in users to Office apps using system credentials",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.OfficeActivationEmailAddress",
+      "key": "OfficeActivationEmailAddress",
+      "keyPath": "OfficeActivationEmailAddress",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Pre-fill email address for Office activation",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.ShowWhatsNewOnLaunch",
+      "key": "ShowWhatsNewOnLaunch",
+      "keyPath": "ShowWhatsNewOnLaunch",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Show What's New dialog when launching Office apps",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.ShowDocStageOnLaunch",
+      "key": "ShowDocStageOnLaunch",
+      "keyPath": "ShowDocStageOnLaunch",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Show template gallery when launching Word, Excel, or PowerPoint",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.DefaultsToLocalOpenSave",
+      "key": "DefaultsToLocalOpenSave",
+      "keyPath": "DefaultsToLocalOpenSave",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Default to local file system in Open/Save dialogs",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.office.DisableCloudFonts",
+      "key": "DisableCloudFonts",
+      "keyPath": "DisableCloudFonts",
+      "payloadType": "com.microsoft.office",
+      "payloadName": "Microsoft Office",
+      "keyDescription": "Disable cloud-based fonts in Office applications",
+      "valueType": "boolean",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    }
+  ]
+}

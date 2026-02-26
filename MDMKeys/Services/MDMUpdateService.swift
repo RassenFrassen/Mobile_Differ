@@ -202,6 +202,7 @@ actor MDMUpdateService {
         case .appleDeveloperDocumentation: return 1
         case .profileCreator: return 2
         case .rtroutonProfiles: return 3
+        case .microsoft: return 4
         }
     }
 

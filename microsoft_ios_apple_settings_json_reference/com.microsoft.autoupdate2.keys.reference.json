@@ -1,0 +1,26 @@
+{
+  "domain": "com.microsoft.autoupdate2",
+  "platform": "macOS",
+  "source_docs": [
+    "https://learn.jamf.com/en-US/bundle/technical-paper-microsoft-office-current/page/Microsoft_AutoUpdate_Default_Preference_Keys.html",
+    "https://learn.microsoft.com/en-us/microsoft-365-apps/privacy/mac-privacy-preferences"
+  ],
+  "keys": [
+    {
+      "key": "ChannelName",
+      "type": "string"
+    },
+    {
+      "key": "HowToCheck",
+      "type": "string"
+    },
+    {
+      "key": "UpdateDeadline.DaysBeforeForcedQuit",
+      "type": "int"
+    },
+    {
+      "key": "AcknowledgedDataCollectionPolicy",
+      "type": "string"
+    }
+  ]
+}

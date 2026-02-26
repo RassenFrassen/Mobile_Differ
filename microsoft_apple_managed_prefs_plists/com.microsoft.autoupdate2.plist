@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--
+  Domain: com.microsoft.autoupdate2
+  Purpose: Example preference-domain plist for MDM (Jamf "Application & Custom Settings" / Intune "Preference file").
+  Notes:
+    - Replace placeholders with your org values.
+    - Remove keys you don't intend to manage.
+    - Data types must match the referenced Microsoft docs.
+  MAU preferences, including deadlines and per-app overrides.
+-->
+<dict>
+  <!-- Global MAU channel and update behaviour -->
+  <key>ChannelName</key>
+  <string>Current</string>
+
+  <!-- HowToCheck examples: AutomaticDownload, AutomaticDownloadAndInstall, Manual -->
+  <key>HowToCheck</key>
+  <string>AutomaticDownload</string>
+
+  <key>EnableCheckForUpdatesButton</key>
+  <true/>
+
+  <key>DisableInsiderCheckbox</key>
+  <false/>
+
+  <!-- Deadline-based forced updates (example: N days after update detected) -->
+  <key>UpdateDeadline.DaysBeforeForcedQuit</key>
+  <integer>5</integer>
+
+  <!-- Per-app configuration (optional) -->
+  <key>Applications</key>
+  <dict>
+    <key>/Applications/Microsoft Defender.app</key>
+    <dict>
+      <key>App Domain</key>
+      <string>com.microsoft.wdav</string>
+      <key>Application ID</key>
+      <string>WDAV00</string>
+      <key>LCID</key>
+      <integer>1033</integer>
+      <key>ChannelName</key>
+      <string>Current</string>
+      <key>UpdateDeadline.DaysBeforeForcedQuit</key>
+      <integer>7</integer>
+    </dict>
+  </dict>
+</dict>
+</plist>

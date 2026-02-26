@@ -1,0 +1,65 @@
+{
+  "domain": "com.microsoft.OneDrive",
+  "also_seen_domains": [
+    "com.microsoft.OneDrive-mac"
+  ],
+  "platform": "macOS",
+  "source_docs": [
+    "https://learn.microsoft.com/en-us/sharepoint/deploy-and-configure-on-macos",
+    "https://learn.microsoft.com/en-us/sharepoint/redirect-known-folders-macos"
+  ],
+  "keys": [
+    {
+      "key": "DisablePersonalSync",
+      "type": "bool"
+    },
+    {
+      "key": "AllowTenantList",
+      "type": "array[string]"
+    },
+    {
+      "key": "BlockTenantList",
+      "type": "array[string]"
+    },
+    {
+      "key": "BlockExternalSync",
+      "type": "bool"
+    },
+    {
+      "key": "DefaultFolder",
+      "type": "dict"
+    },
+    {
+      "key": "DisableAutoConfig",
+      "type": "int"
+    },
+    {
+      "key": "KFMOptInWithWizard",
+      "type": "string"
+    },
+    {
+      "key": "KFMSilentOptIn",
+      "type": "string"
+    },
+    {
+      "key": "KFMSilentOptInWithNotification",
+      "type": "bool"
+    },
+    {
+      "key": "KFMSilentOptInDesktop",
+      "type": "bool"
+    },
+    {
+      "key": "KFMSilentOptInDocuments",
+      "type": "bool"
+    },
+    {
+      "key": "KFMBlockOptOut",
+      "type": "bool"
+    },
+    {
+      "key": "MinDiskSpaceLimitInMB",
+      "type": "int"
+    }
+  ]
+}

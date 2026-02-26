@@ -1,0 +1,83 @@
+{
+  "payload": {
+    "id": "com.microsoft.Edge",
+    "payloadType": "com.microsoft.Edge",
+    "name": "Microsoft Edge",
+    "category": "Other",
+    "platforms": [
+      "macOS"
+    ],
+    "summary": "Microsoft Edge browser settings for macOS",
+    "discussion": "",
+    "isDeprecated": false,
+    "sources": [
+      "Microsoft"
+    ],
+    "sourceDocumentation": [
+      "https://learn.microsoft.com/en-us/deployedge/configure-microsoft-edge-on-mac",
+      "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies"
+    ]
+  },
+  "keys": [
+    {
+      "id": "com.microsoft.Edge.RestoreOnStartup",
+      "key": "RestoreOnStartup",
+      "keyPath": "RestoreOnStartup",
+      "payloadType": "com.microsoft.Edge",
+      "payloadName": "Microsoft Edge",
+      "keyDescription": "Action on startup (1=Restore last session, 4=Open list of URLs, 5=Open New Tab)",
+      "valueType": "integer",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Edge.RestoreOnStartupURLs",
+      "key": "RestoreOnStartupURLs",
+      "keyPath": "RestoreOnStartupURLs",
+      "payloadType": "com.microsoft.Edge",
+      "payloadName": "Microsoft Edge",
+      "keyDescription": "URLs to open on startup when RestoreOnStartup is set to 4",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Edge.HomepageLocation",
+      "key": "HomepageLocation",
+      "keyPath": "HomepageLocation",
+      "payloadType": "com.microsoft.Edge",
+      "payloadName": "Microsoft Edge",
+      "keyDescription": "Home button URL",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    },
+    {
+      "id": "com.microsoft.Edge.ExtensionInstallForcelist",
+      "key": "ExtensionInstallForcelist",
+      "keyPath": "ExtensionInstallForcelist",
+      "payloadType": "com.microsoft.Edge",
+      "payloadName": "Microsoft Edge",
+      "keyDescription": "Force-install Edge extensions (format: extension_id;update_url)",
+      "valueType": "string",
+      "platforms": [
+        "macOS"
+      ],
+      "sources": [
+        "Microsoft"
+      ]
+    }
+  ]
+}
