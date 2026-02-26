@@ -126,6 +126,12 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    
+                    NavigationLink {
+                        CustomSourcesView()
+                    } label: {
+                        Label("Custom Sources", systemImage: "doc.badge.plus")
+                    }
                 } header: {
                     Text("Data Sources")
                 } footer: {

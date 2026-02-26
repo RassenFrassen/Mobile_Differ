@@ -53,6 +53,36 @@ struct KeyDetailView: View {
                 .padding(.vertical, 4)
             }
 
+            // Deprecation Warning
+            if key.isDeprecated {
+                Section {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .font(.title2)
+                                .foregroundStyle(.orange)
+                            Text("Deprecated Key")
+                                .font(.headline)
+                                .foregroundStyle(.orange)
+                        }
+                        
+                        if let deprecated = key.deprecated {
+                            Text("This key was deprecated in \(deprecated)")
+                                .font(.subheadline)
+                        } else {
+                            Text("This key has been deprecated")
+                                .font(.subheadline)
+                        }
+                        
+                        Text("Using deprecated keys may result in unexpected behavior or configuration profile validation failures. Consider using alternative keys or remove this key from your profiles.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 4)
+                }
+                .listRowBackground(Color.orange.opacity(0.1))
+            }
+            
             // Description
             if let description = key.keyDescription, !description.isEmpty {
                 Section("Description") {
@@ -63,6 +93,26 @@ struct KeyDetailView: View {
                 }
             }
 
+            // Platform Availability
+            if !key.platforms.isEmpty {
+                Section {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("This key is available on the following platforms:")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        
+                        FlowLayout(spacing: 8) {
+                            ForEach(key.platforms, id: \.self) { platform in
+                                PlatformChip(platform: platform, introduced: key.introduced)
+                            }
+                        }
+                    }
+                    .padding(.vertical, 4)
+                } header: {
+                    Text("Platform Availability")
+                }
+            }
+            
             // Key Details
             Section("Key Details") {
                 DetailRow(label: "Key Name", value: key.key)
@@ -189,6 +239,9 @@ struct KeyDetailView: View {
                 ShareLink(item: shareText)
             }
         }
+        .task {
+            await UsageAnalyticsService.shared.recordKeyView(key.id, keyPath: key.keyPath, payloadType: key.payloadType)
+        }
     }
 
     private var shareText: String {
@@ -223,6 +276,120 @@ struct DetailRow: View {
             Text(value)
                 .font(monospaced ? .system(.body, design: .monospaced) : .body)
                 .textSelection(.enabled)
+        }
+    }
+}
+
+// MARK: - Platform Chip
+
+struct PlatformChip: View {
+    let platform: String
+    let introduced: String?
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Image(systemName: platformIcon)
+                    .font(.body)
+                Text(platformDisplayName)
+                    .font(.body.weight(.medium))
+            }
+            .foregroundStyle(platformColor)
+            
+            if let introduced = introduced {
+                Text("Since \(introduced)")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(platformColor.opacity(0.12), in: RoundedRectangle(cornerRadius: 8))
+    }
+    
+    private var platformDisplayName: String {
+        switch platform.lowercased() {
+        case let p where p.contains("ios") || p.contains("iphone"): return "iOS"
+        case let p where p.contains("ipad"): return "iPadOS"
+        case let p where p.contains("macos") || p.contains("mac"): return "macOS"
+        case let p where p.contains("tvos") || p.contains("tv"): return "tvOS"
+        case let p where p.contains("watchos") || p.contains("watch"): return "watchOS"
+        case let p where p.contains("vision"): return "visionOS"
+        default: return platform
+        }
+    }
+    
+    private var platformIcon: String {
+        switch platform.lowercased() {
+        case let p where p.contains("ios") || p.contains("iphone"): return "iphone"
+        case let p where p.contains("ipad"): return "ipad"
+        case let p where p.contains("macos") || p.contains("mac"): return "macbook"
+        case let p where p.contains("tvos") || p.contains("tv"): return "appletv"
+        case let p where p.contains("watchos") || p.contains("watch"): return "applewatch"
+        case let p where p.contains("vision"): return "visionpro"
+        default: return "questionmark.circle"
+        }
+    }
+    
+    private var platformColor: Color {
+        switch platform.lowercased() {
+        case let p where p.contains("ios") || p.contains("iphone"): return .blue
+        case let p where p.contains("ipad"): return .indigo
+        case let p where p.contains("macos") || p.contains("mac"): return .purple
+        case let p where p.contains("tvos") || p.contains("tv"): return .teal
+        case let p where p.contains("watchos") || p.contains("watch"): return .green
+        case let p where p.contains("vision"): return .orange
+        default: return .gray
+        }
+    }
+}
+
+// MARK: - Flow Layout
+
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let result = FlowResult(in: proposal.replacingUnspecifiedDimensions().width, subviews: subviews, spacing: spacing)
+        return result.size
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let result = FlowResult(in: bounds.width, subviews: subviews, spacing: spacing)
+        for (index, subview) in subviews.enumerated() {
+            subview.place(at: CGPoint(x: bounds.minX + result.positions[index].x, y: bounds.minY + result.positions[index].y), proposal: .unspecified)
+        }
+    }
+    
+    struct FlowResult {
+        var size: CGSize
+        var positions: [CGPoint]
+        
+        init(in maxWidth: CGFloat, subviews: Subviews, spacing: CGFloat) {
+            var positions: [CGPoint] = []
+            var size: CGSize = .zero
+            var currentX: CGFloat = 0
+            var currentY: CGFloat = 0
+            var rowHeight: CGFloat = 0
+            
+            for subview in subviews {
+                let subviewSize = subview.sizeThatFits(.unspecified)
+                
+                if currentX + subviewSize.width > maxWidth, currentX > 0 {
+                    currentX = 0
+                    currentY += rowHeight + spacing
+                    rowHeight = 0
+                }
+                
+                positions.append(CGPoint(x: currentX, y: currentY))
+                currentX += subviewSize.width + spacing
+                rowHeight = max(rowHeight, subviewSize.height)
+                size.width = max(size.width, currentX - spacing)
+                size.height = currentY + rowHeight
+            }
+            
+            self.size = size
+            self.positions = positions
         }
     }
 }
